@@ -1,0 +1,9 @@
+.idea
+.gradle
+local.properties
+build/
+**/*.iml
+.DS_Store
+/captures
+/engagement/src/main/assets/crashlytics-build.properties
+/engagement/src/main/res/values/com_crashlytics_export_strings.xml

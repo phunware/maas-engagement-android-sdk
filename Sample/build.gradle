@@ -1,0 +1,56 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.noveogroup.android.check'
+
+/**
+ * Get the version code from command line param
+ *
+ * @return int If the param -PBUILD_NUMBER is present then return int value or 1
+ */
+def getVersionCode = { ->
+    def code = project.hasProperty('BUILD_NUMBER') ? BUILD_NUMBER.toInteger() : 1
+    println "VersionCode is set to $code"
+    return code
+}
+
+android {
+    adbOptions {
+        timeOutInMs 60000 // set timeout to 1 minute
+    }
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "com.phunware.engagement.sample"
+        minSdkVersion 16
+        targetSdkVersion 22
+        versionCode getVersionCode()
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile 'com.phunware.engagement:mobile-engagement:3.1.0'
+    compile('com.phunware.engagement:beacon-location-manager:3.1.0') {
+        exclude group: 'com.phunware.engagement', module: 'mobile-engagement'
+    }
+
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:design:23.3.0'
+    compile 'com.google.android.gms:play-services-maps:9.6.1'
+
+    compile 'com.jakewharton:process-phoenix:1.0.2'
+    compile 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
+}
+
+apply plugin: 'com.google.gms.google-services'
