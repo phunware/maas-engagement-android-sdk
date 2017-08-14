@@ -9,7 +9,6 @@ import com.phunware.engagement.log.FileLogger;
 import com.phunware.engagement.log.LogLogger;
 import com.phunware.engagement.sample.loggers.ContentProviderLogger;
 
-
 public class SampleApplication extends Application {
 
     public FileLogger mFileLogger;
