@@ -1,11 +1,9 @@
 # MaaS Engagement SDK for Android
 
-<<<<<<< HEAD
 [Android MaaS Engagement Documentation](http://phunware.github.io/maas-engagement-android-sdk/)
 =======
 **Version 3.1.1**
 =======
->>>>>>> 223df55... Update README
 ________________
 
 
