@@ -33,13 +33,7 @@ MaaS Engagement uses the following third party components.
 -------
 1. Bring up the sample app with Android studio
 2. Create a new Android application in the [MaaS portal](https://maas.phunware.com/)
-3. In `sample/src/main/res/values/strings.xml` replace the `appId`, `accessKey` and `sigKey` values with the values from your new application in MaaS. As an example:
-
-  ```xml
-  <string name="appId">1421</string>
-  <string name="accessKey">b91b116ceafb413bed252a7b274e95a622aee20b</string>
-  <string name="sigKey">3191eacc0cd0a5f66b445d11fbdf08fad7c596b8</string>
-  ```
+3. In `sample/src/main/res/values/strings.xml` replace the `appId`, `accessKey` and `sigKey` values with the values from your new application in MaaS. 
 
   We also use Google maps in the sample app. In order to use the locations feature, please also add the following `<meta-data>` tag to your App Manifest:
 
