@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+Version 3.1.0 *(2017-8-14)*
+----------------------------
+* Various bug fixes
+
 Version 3.1.0 *(2017-5-11)*
 ----------------------------
 * Messaging SDK renamed to Engagement SDK
