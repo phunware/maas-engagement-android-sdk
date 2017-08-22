@@ -113,7 +113,7 @@ public class LogFragment extends Fragment implements LoaderManager.LoaderCallbac
         switch (item.getItemId()) {
             case R.id.send:
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || mWriteExternal) {
-                    sendLogFile();
+                    // Remove file logger
                 }
                 else {
                     ((MainActivity) getActivity()).checkWriteExternalPermissions();
@@ -126,67 +126,6 @@ public class LogFragment extends Fragment implements LoaderManager.LoaderCallbac
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    /**
-     * Allows the user to send the log file. This method will create a copy of the current log file
-     * in a public directory so that it can be sent.
-     */
-    private void sendLogFile() {
-        File file = ((SampleApplication) getActivity().getApplication())
-                .getFileLogger()
-                .getLogFile();
-
-        // create a file in the public location
-        File targetDir = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOWNLOADS);
-        File target = null;
-        try {
-            target = File.createTempFile("lm_sample", ".txt", targetDir);
-        } catch (IOException e) {
-            Log.e(TAG, "Failed to create log file at: "
-                    + (targetDir != null ? targetDir.getAbsolutePath() : null), e);
-            Toast.makeText(getActivity(), R.string.error_send_log_create_file, Toast.LENGTH_LONG)
-                    .show();
-            return;
-        }
-
-        // copy the log file there
-        InputStream in = null;
-        OutputStream out = null;
-        try {
-            in = new BufferedInputStream(new FileInputStream(file));
-            out = new BufferedOutputStream(new FileOutputStream(target));
-
-            byte[] buf = new byte[4096];
-            int count;
-            while ((count = in.read(buf)) > 0) {
-                out.write(buf, 0, count);
-            }
-        } catch (IOException e) {
-            Log.e(TAG, "Failed to copy log file", e);
-            Toast.makeText(getActivity(), R.string.error_send_log_copy_file, Toast.LENGTH_LONG)
-                    .show();
-            return;
-        } finally {
-            try {
-                if (in != null) in.close();
-                if (out != null) out.close();
-            } catch (IOException e) {
-                // don't care
-            }
-        }
-
-        // Send it
-        Config config = AppSettings.readConfig(getActivity());
-        String body = String.format(Locale.US, BODY_FORMAT,
-                config.getAppId(), PwCoreSession.getInstance().getEnvironment());
-
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(target));
-        intent.putExtra(Intent.EXTRA_TEXT, body);
-        startActivity(Intent.createChooser(intent, getString(R.string.title_share)));
     }
 
     /**
@@ -272,6 +211,5 @@ public class LogFragment extends Fragment implements LoaderManager.LoaderCallbac
 
     public void writeExternalPrivsGranted() {
         mWriteExternal = true;
-        sendLogFile();
     }
 }
