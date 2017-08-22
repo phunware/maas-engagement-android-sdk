@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+Version 3.1.2 *(2017-8-2)*
+----------------------------
+* Flexible broadcast
+
 Version 3.1.1 *(2017-8-14)*
 ----------------------------
 * Various bug fixes
