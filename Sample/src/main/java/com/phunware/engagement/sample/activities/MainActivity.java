@@ -17,7 +17,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.phunware.engagement.Engagement;
 import com.phunware.engagement.entities.Message;
@@ -114,8 +117,20 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(com.phunware.engagement.sample.R.menu.global, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_enable_push_notifications:
+                Engagement.enablePushNotifications(this.getApplicationContext());
+                Toast.makeText(this.getApplicationContext(), "Push Notifications now Enabled",
+                        Toast.LENGTH_LONG).show();
+                return true;
             case android.R.id.home:
                 if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
                     getSupportFragmentManager().popBackStack();
@@ -185,24 +200,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void checkWriteExternalPermissions() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                // Show an expanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-            } else {
-                // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        LogFragment.PERMISSIONS_REQUEST_WRITE_EXTERNAL);
-            }
-        }
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode,
             @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -216,19 +213,6 @@ public class MainActivity extends AppCompatActivity
                     onPermissionsGranted();
                 }
                 return;
-
-            case LogFragment.PERMISSIONS_REQUEST_WRITE_EXTERNAL:
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    LogFragment fragment = (LogFragment) getSupportFragmentManager()
-                            .findFragmentByTag(TAG_LOG_FRAGMENT);
-
-                    if (fragment != null) {
-                        fragment.writeExternalPrivsGranted();
-                    }
-                }
-                break;
 
             default:
                 break;

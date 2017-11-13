@@ -2,7 +2,7 @@
 
 [Android MaaS Engagement Documentation](http://phunware.github.io/maas-engagement-android-sdk/)
 =======
-**Version 3.1.2**
+**Version 3.2.0**
 =======
 ________________
 
@@ -11,7 +11,7 @@ ________________
 This is Phunware's Android SDK for Engagement. Visit http://maas.phunware.com/ for more details and to sign up.
 
 ### Build requirements
-* Android SDK 4.0.3+ (API level 15) or above
+* Android SDK 4.3+ (API level 18) or above
 
 ### Documentation
 

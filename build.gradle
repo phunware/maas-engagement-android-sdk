@@ -9,7 +9,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath 'com.android.tools.build:gradle:2.3.3'
         classpath 'com.noveogroup.android:check:1.2.3'
         classpath 'com.google.gms:google-services:3.0.0'
     }
@@ -23,6 +23,9 @@ allprojects {
         maven {
             url "https://nexus.phunware.com/content/groups/public/"
         }
+        maven {
+            url "https://maven.google.com"
+        }
     }
 }
 
@@ -32,12 +35,12 @@ configurations.all {
 }
 
 ext {
-    compileSdkVersion = 23
-    buildToolsVersion = '23.0.3'
-    minSdkVersion = 15
-    targetSdkVersion = 23
+    compileSdkVersion = 26
+    buildToolsVersion = '26.0.1'
+    minSdkVersion = 19
+    targetSdkVersion = 26
 
-    supportLibVersion = '23.3.0'
+    supportLibVersion = '26.0.1'
     junitVersion = '4.12'
     okhttpVersion = '3.2.0'
 }

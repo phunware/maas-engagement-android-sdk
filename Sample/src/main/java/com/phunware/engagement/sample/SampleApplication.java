@@ -16,7 +16,7 @@ public class SampleApplication extends Application {
 
         PwCoreSession.getInstance().setEnvironment(PwCoreSession.Environment.PROD);
         PwCoreSession.getInstance().registerKeys(this, getString(R.string.app_id),
-                getString(R.string.access_key), getString(R.string.signature_key), "");
+                getString(R.string.access_key), getString(R.string.signature_key));
 
         new Engagement.Builder(this)
                 .appId(Long.parseLong(getString(R.string.app_id)))
@@ -27,4 +27,5 @@ public class SampleApplication extends Application {
     }
 
     public LocationManager getLocationManager() { return Engagement.locationManager(); }
+
 }
