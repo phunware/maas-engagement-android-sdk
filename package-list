@@ -3,7 +3,9 @@ android.support.coreui
 android.support.coreutils
 android.support.fragment
 android.support.mediacompat
+android.support.multidex
 android.support.v4
+com.firebase.jobdispatcher
 com.google.android.gms
 com.google.android.gms.base
 com.google.android.gms.gcm
