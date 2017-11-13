@@ -1,12 +1,9 @@
 package com.phunware.engagement.sample.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -18,34 +15,17 @@ import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.phunware.core.PwCoreSession;
 import com.phunware.engagement.sample.R;
-import com.phunware.engagement.sample.SampleApplication;
-import com.phunware.engagement.sample.activities.MainActivity;
 import com.phunware.engagement.sample.adapters.LogMessageAdapter;
-import com.phunware.engagement.sample.models.Config;
 import com.phunware.engagement.sample.models.LogMessage;
 import com.phunware.engagement.sample.sql.LogMessageContract;
-import com.phunware.engagement.sample.util.AppSettings;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Locale;
 
 /**
  * Displays log messages for the current config to the user.
@@ -55,7 +35,6 @@ public class LogFragment extends Fragment implements LoaderManager.LoaderCallbac
 
     private static final String TAG = LogFragment.class.getSimpleName();
     public static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL = 15;
-    private boolean mWriteExternal = true;
 
     private static final String BODY_FORMAT = "Engagement log file.%n%n"
             + "AppId: %s%n"
@@ -111,14 +90,6 @@ public class LogFragment extends Fragment implements LoaderManager.LoaderCallbac
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.send:
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || mWriteExternal) {
-                    // Remove file logger
-                }
-                else {
-                    ((MainActivity) getActivity()).checkWriteExternalPermissions();
-                }
-                return true;
             case R.id.filter:
                 View itemView = getActivity().findViewById(R.id.filter);
                 showFilterPopup(itemView);
@@ -207,9 +178,5 @@ public class LogFragment extends Fragment implements LoaderManager.LoaderCallbac
     @Override
     public boolean onQueryTextChange(String newText) {
         return onQueryTextSubmit(newText);
-    }
-
-    public void writeExternalPrivsGranted() {
-        mWriteExternal = true;
     }
 }

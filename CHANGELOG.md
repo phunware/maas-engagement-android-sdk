@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+Version 3.2.0 *(2017-11-13)*
+----------------------------
+* New enablePushNotifications api off of Engagement base class *Must be called in order to receive push notifications*
+* Android Oreo compatibility fixes for background use, please see migration.md for more details
+
 Version 3.1.2 *(2017-8-2)*
 ----------------------------
 * Flexible broadcast
