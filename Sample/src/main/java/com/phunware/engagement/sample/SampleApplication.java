@@ -1,6 +1,8 @@
 package com.phunware.engagement.sample;
 
 import android.app.Application;
+import android.content.pm.PackageManager;
+import android.support.v4.content.ContextCompat;
 
 import com.phunware.core.PwCoreSession;
 import com.phunware.engagement.Engagement;
@@ -23,7 +25,11 @@ public class SampleApplication extends Application {
                 .addLogger(new ContentProviderLogger(this))
                 .addLogger(new LogLogger())
                 .build();
-        Engagement.locationManager().start();
+
+        if (ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            Engagement.locationManager().start();
+        }
     }
 
     public LocationManager getLocationManager() { return Engagement.locationManager(); }

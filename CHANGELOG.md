@@ -1,50 +1,68 @@
-Change Log
-==========
+# Engagement SDK Changelog
+## Version 3.3.0 (Wednesday, Mar 14th, 2018)
+#### Bug fixes / performance enhancements
+* Android Oreo compatibility fixes for receiving push notifications in the background
+* Fix for receiving background location updates
+* Fix for receiving engagement messages on Oreo devices when device is within geofence during app installation
+* Fix for other background crashes
 
-Version 3.2.0 *(2017-11-13)*
-----------------------------
-* Android Oreo compatibility fixes for background use, please see migration.md for more details
+#### Developer stuff
+* More logging for easier troubleshooting
 
-Version 3.1.2 *(2017-8-22)*
-----------------------------
-* Flexible broadcast
+## Version 3.2.0 (2017-11-13)
+#### Features
 * New enablePushNotifications api off of Engagement base class *Must be called in order to receive push notifications*
 
-Version 3.1.1 *(2017-8-14)*
-----------------------------
+#### Bug fixes / performance enhancements
+* Android Oreo compatibility fixes for background use, please see migration.md for more details
+
+## Version 3.1.2 (2017-8-22)
+#### Features
+* Flexible broadcast
+
+## Version 3.1.1 (2017-8-14)
+#### Bug fixes / performance enhancements
 * Various bug fixes
 
-Version 3.1.0 *(2017-5-11)*
-----------------------------
+## Version 3.1.0 (2017-5-11)
+#### Bug fixes / performance enhancements
+* Various bug fixes
+
+#### Developer stuff
 * Messaging SDK renamed to Engagement SDK
-* Various bug fixes
 
-Version 3.0.5 *(2017-4-19)*
-----------------------------
+## Version 3.0.5 (2017-4-19)
+#### Features
 * Static id updates
+
+#### Bug fixes / performance enhancements
 * Deep-linking bug fix
 * Various bug fixes
 
-Version 3.0.4 *(2017-1-23)*
-----------------------------
+## Version 3.0.4 (2017-1-23)
+#### Bug fixes / performance enhancements
 * Various bug fixes
 
-Version 3.0.3 *(2017-1-04)*
-----------------------------
+## Version 3.0.3 (2017-1-04)
+#### Bug fixes / performance enhancements
 * Various bug fixes
 
-Version 3.0.2 *(2016-12-08)*
-----------------------------
+## Version 3.0.2 (2016-12-08)
+#### Features
 * Single device push notifications are now supported
 * Updated SqlCipher for Android 7+ support
+
+#### Bug fixes / performance enhancements
 * Various bug fixes
 
-Version 3.0.1 *(2016-10-10)*
-----------------------------
+## Version 3.0.1 (2016-10-10)
+#### Features
 * Updated Google Play Service to 9.6.1
 * Updated to Core 3.0.2
-* various bug fixes
 
-Version 3.0.0 *(2016-08-31)*
-----------------------------
+#### Bug fixes / performance enhancements
+* Various bug fixes
+
+## Version 3.0.0 (2016-08-31)
+#### Features
 * Complete re-write of Messaging SDK

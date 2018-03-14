@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
-import com.phunware.engagement.Engagement;
 import com.phunware.engagement.sample.models.Config;
 
 
