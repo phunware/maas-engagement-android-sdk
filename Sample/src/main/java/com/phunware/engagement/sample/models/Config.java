@@ -2,8 +2,6 @@ package com.phunware.engagement.sample.models;
 
 import android.content.Context;
 
-import com.phunware.engagement.Engagement;
-
 public class Config {
     private String mTitle;
     private long mAppId;

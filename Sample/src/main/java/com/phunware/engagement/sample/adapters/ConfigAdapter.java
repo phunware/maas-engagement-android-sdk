@@ -25,13 +25,11 @@ public class ConfigAdapter extends RecyclerView.Adapter<ConfigAdapter.ViewHolder
 
     private Config mSelectedConfig;
     private List<Config> mAvailableConfigs;
-    private int mCurrentPosition = 0;
 
     private AdapterView.OnItemSelectedListener mSpinnerListener =
             new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            mCurrentPosition = position;
             setConfig(mAvailableConfigs.get(position));
         }
 
@@ -45,7 +43,6 @@ public class ConfigAdapter extends RecyclerView.Adapter<ConfigAdapter.ViewHolder
             int position) {
         this.mSelectedConfig = mSelectedConfig;
         this.mAvailableConfigs = mAvailableConfigs;
-        this.mCurrentPosition = position;
     }
 
     public void setConfig(Config config) {

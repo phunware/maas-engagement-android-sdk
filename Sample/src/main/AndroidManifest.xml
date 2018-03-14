@@ -45,9 +45,6 @@
         <meta-data android:name="com.phunware.ACCESS_KEY" android:value="@string/access_key" />
         <meta-data android:name="com.phunware.SIGNATURE_KEY" android:value="@string/signature_key" />
 
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="b8127086af392cb1b73dc00a7387bb7a0856138f" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

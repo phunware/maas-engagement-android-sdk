@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.phunware.core.PwCoreSession;
-import com.phunware.engagement.Engagement;
 import com.phunware.engagement.sample.R;
 import com.phunware.engagement.sample.models.Config;
 
