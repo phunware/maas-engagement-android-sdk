@@ -1,4 +1,9 @@
 # Engagement SDK Changelog
+
+## Version 3.3.1 (Tuesday, Mar 27th, 2018)
+#### Bug fixes / performance enhancements
+* Upgraded Sql Cipher library to version 3.5.9 to support 64 bit architecture.
+
 ## Version 3.3.0 (Wednesday, Mar 14th, 2018)
 #### Bug fixes / performance enhancements
 * Android Oreo compatibility fixes for receiving push notifications in the background
