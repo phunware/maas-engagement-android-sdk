@@ -40,8 +40,8 @@ android {
 }
 
 dependencies {
-    compile 'com.phunware.engagement:mobile-engagement:3.3.0'
-    compile('com.phunware.engagement:beacon-location-manager:3.3.0') {
+    compile 'com.phunware.engagement:mobile-engagement:3.3.1'
+    compile('com.phunware.engagement:beacon-location-manager:3.3.1') {
         exclude group: 'com.phunware.engagement', module: 'mobile-engagement'
     }
 
