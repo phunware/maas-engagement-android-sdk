@@ -35,12 +35,12 @@ configurations.all {
 }
 
 ext {
-    compileSdkVersion = 26
-    buildToolsVersion = '26.0.1'
+    compileSdkVersion = 27
+    buildToolsVersion = '27.0.3'
     minSdkVersion = 19
     targetSdkVersion = 26
 
-    supportLibVersion = '26.0.1'
+    supportLibVersion = '27.1.0'
     junitVersion = '4.12'
     okhttpVersion = '3.2.0'
 }
