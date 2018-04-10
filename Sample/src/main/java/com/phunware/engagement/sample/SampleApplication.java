@@ -1,7 +1,7 @@
 package com.phunware.engagement.sample;
 
-import android.app.Application;
 import android.content.pm.PackageManager;
+import android.support.multidex.MultiDexApplication;
 import android.support.v4.content.ContextCompat;
 
 import com.phunware.core.PwCoreSession;
@@ -10,7 +10,7 @@ import com.phunware.engagement.location.LocationManager;
 import com.phunware.engagement.log.LogLogger;
 import com.phunware.engagement.sample.loggers.ContentProviderLogger;
 
-public class SampleApplication extends Application {
+public class SampleApplication extends MultiDexApplication {
 
     @Override
     public void onCreate() {
