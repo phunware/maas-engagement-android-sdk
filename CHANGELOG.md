@@ -1,5 +1,19 @@
 # Engagement SDK Changelog
 
+## Version 3.5.0 (Monday, Jun 4th, 2018)
+#### Features
+* Faster geofence detections on app install
+* Handle device reboots
+* Added registration with Core Module
+* Updated deprecated location acquisition APIs
+
+#### Bug fixes / performance enhancements
+* Fixed time delay in starting beacon ranging
+* Fixed duplicate geofence notifications on screen orientation change
+* Fixed re-registering geofences
+* Fixed duplicate enable push notification requests to server
+* Fixed synchronization issues
+
 ## Version 3.4.0 (Tuesday, Apr 10th, 2018)
 #### Features
 * Updated Google play services to 11.8.0
