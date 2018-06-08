@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.phunware.engagement.sample.models.LogMessage;
 import com.phunware.engagement.sample.sql.LogMessageContract;
 
+import java.util.ArrayList;
+
 /**
  * Adapter to display log messages.
  */
@@ -57,6 +59,18 @@ public class LogMessageAdapter extends RecyclerView.Adapter<LogMessageAdapter.Vi
     @Override
     public int getItemCount() {
         return mCursor != null ? mCursor.getCount() : 0;
+    }
+
+    public ArrayList<LogMessage> getLogs() {
+        ArrayList<LogMessage> logs = new ArrayList<>();
+        if (mCursor.moveToFirst()) {
+            do {
+                LogMessage log = LogMessageContract.fromCursor(mCursor);
+                logs.add(log);
+            } while (mCursor.moveToNext());
+        }
+
+        return logs;
     }
 
     static final class ViewHolder extends RecyclerView.ViewHolder {

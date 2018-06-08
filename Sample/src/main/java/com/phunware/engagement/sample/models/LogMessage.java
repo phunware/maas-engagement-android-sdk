@@ -1,5 +1,7 @@
 package com.phunware.engagement.sample.models;
 
+import java.util.Locale;
+
 public class LogMessage {
 
     public enum Level {
@@ -65,4 +67,8 @@ public class LogMessage {
         this.mTag = tag;
     }
 
+    @Override
+    public String toString() {
+        return String.format(Locale.US, "[%s] %s - %s", mLevel, mTag, mMessage);
+   }
 }
