@@ -4,12 +4,11 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.os.Bundle;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -23,10 +22,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.phunware.core.PwLog;
 import com.phunware.engagement.Engagement;
 import com.phunware.engagement.entities.Message;
 import com.phunware.engagement.messages.MessageManager;
 import com.phunware.engagement.sample.R;
+import com.phunware.engagement.sample.SampleApplication;
 import com.phunware.engagement.sample.fragments.AttributeFragment;
 import com.phunware.engagement.sample.fragments.ConfigFragment;
 import com.phunware.engagement.sample.fragments.GeozoneListFragment;
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         checkPermissions();
-        mDrawer = (DrawerLayout) findViewById(R.id.drawer);
+        mDrawer = findViewById(R.id.drawer);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawer.setDrawerListener(mDrawerToggle);
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity
             bar.setDisplayHomeAsUpEnabled(true);
             bar.setHomeButtonEnabled(true);
         }
-        mNavigation = (NavigationView) findViewById(R.id.navigation);
+        mNavigation = findViewById(R.id.navigation);
         mNavigation.setNavigationItemSelectedListener(this);
 
         getSupportFragmentManager().addOnBackStackChangedListener(
@@ -72,7 +73,23 @@ public class MainActivity extends AppCompatActivity
                 });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.global, menu);
+        return true;
+    }
+
     private void onPermissionsGranted() {
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            PwLog.w(TAG_LOG_FRAGMENT, "Please grant location Permission to access Location manager services.");
+            return;
+        }
+
+        // Start the location manager
+        ((SampleApplication) getApplication()).getLocationManager().start();
 
         FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
 
@@ -80,9 +97,8 @@ public class MainActivity extends AppCompatActivity
             case Intent.ACTION_VIEW:
                 trans.replace(R.id.content, new ConfigFragment());
 
-                Message intentMessage = getIntent().getParcelableExtra(MessageManager.EXTRA_MESSAGE);
-                Engagement.analytics().trackCampaignAppLaunched(intentMessage.campaignId(),
-                        intentMessage.campaignType());
+                Message intentMessage = getIntent()
+                        .getParcelableExtra(MessageManager.EXTRA_MESSAGE);
 
                 boolean hasExtras = getIntent()
                         .getBooleanExtra(MessageManager.EXTRA_HAS_EXTRAS, false);
@@ -90,7 +106,6 @@ public class MainActivity extends AppCompatActivity
                     // Add the list fragment to the view *outside* the transaction we're
                     // going to commit so that it's before the detail view on the back stack.
                     trans.replace(R.id.content, new MessageListFragment());
-
 
                     long messageId = intentMessage.campaignId();
 
@@ -115,13 +130,6 @@ public class MainActivity extends AppCompatActivity
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(com.phunware.engagement.sample.R.menu.global, menu);
-        return true;
     }
 
     @Override
@@ -203,10 +211,10 @@ public class MainActivity extends AppCompatActivity
             onPermissionsGranted();
         }
     }
- 
+
     @Override
     public void onRequestPermissionsResult(int requestCode,
-            @NonNull String[] permissions, @NonNull int[] grantResults) {
+                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case PERMISSIONS_REQUEST_LOCATION:
                 // If request is cancelled, the result arrays are empty.

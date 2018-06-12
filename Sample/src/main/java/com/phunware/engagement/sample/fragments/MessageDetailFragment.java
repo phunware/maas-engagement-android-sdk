@@ -66,8 +66,8 @@ public class MessageDetailFragment extends Fragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_message_detail, container, false);
-        mList = (RecyclerView) v.findViewById(R.id.list);
-        mProgress = (ProgressBar) v.findViewById(R.id.progressBar);
+        mList = v.findViewById(R.id.list);
+        mProgress = v.findViewById(R.id.progressBar);
         return v;
     }
 
@@ -145,8 +145,8 @@ public class MessageDetailFragment extends Fragment implements
         for (int i = 0, n = metadata.size(); i < n; i++) {
             MessageMetadata md = metadata.get(i);
             SpannableStringBuilder builder = new SpannableStringBuilder(
-                    getString(R.string.item_metadata, md.key(), md.value()));
-            builder.setSpan(bold, 0, md.key().length() + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+                    getString(R.string.item_metadata, md.getKey(), md.getValue()));
+            builder.setSpan(bold, 0, md.getKey().length() + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
             items[i] = builder;
         }
         new AlertDialog.Builder(getActivity())
@@ -183,7 +183,7 @@ public class MessageDetailFragment extends Fragment implements
     }
 
     private void markMessageRead(Message message) {
-        Engagement.messageManager().setMessageRead(message.campaignId(), new Callback<Message>() {
+        Engagement.messageManager().setMessageRead(message.campaignId, new Callback<Message>() {
             @Override
             public void onSuccess(Message data) {
                 onMessage(data);

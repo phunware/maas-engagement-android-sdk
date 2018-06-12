@@ -36,8 +36,8 @@ public class PromotionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_promotion, container, false);
-        mTitle = (TextView) v.findViewById(R.id.title);
-        mWebview = (WebView) v.findViewById(R.id.webview);
+        mTitle = v.findViewById(R.id.title);
+        mWebview = v.findViewById(R.id.webview);
         return v;
     }
 
@@ -53,7 +53,7 @@ public class PromotionFragment extends Fragment {
     }
 
     private void setMessage(Message message) {
-        mTitle.setText(message.promotionTitle());
-        mWebview.loadData(message.promotionMessage(), "text/html; charset=utf-8", "UTF-8");
+        mTitle.setText(message.promotionTitle);
+        mWebview.loadData(message.promotionMessage, "text/html; charset=utf-8", "UTF-8");
     }
 }

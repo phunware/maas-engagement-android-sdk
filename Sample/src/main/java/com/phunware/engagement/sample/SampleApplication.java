@@ -1,11 +1,10 @@
 package com.phunware.engagement.sample;
 
-import android.content.pm.PackageManager;
 import android.support.multidex.MultiDexApplication;
-import android.support.v4.content.ContextCompat;
 
 import com.phunware.core.PwCoreSession;
 import com.phunware.engagement.Engagement;
+import com.phunware.engagement.EngagementLifecycleCallbacks;
 import com.phunware.engagement.location.LocationManager;
 import com.phunware.engagement.log.LogLogger;
 import com.phunware.engagement.sample.loggers.ContentProviderLogger;
@@ -25,13 +24,11 @@ public class SampleApplication extends MultiDexApplication {
                 .addLogger(new ContentProviderLogger(this))
                 .addLogger(new LogLogger())
                 .build();
-
-        if (ContextCompat.checkSelfPermission(this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            Engagement.locationManager().start();
-        }
+        registerActivityLifecycleCallbacks(new EngagementLifecycleCallbacks());
     }
 
-    public LocationManager getLocationManager() { return Engagement.locationManager(); }
+    public LocationManager getLocationManager() {
+        return Engagement.locationManager();
+    }
 
 }

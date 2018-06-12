@@ -10,7 +10,10 @@ import com.phunware.engagement.entities.Message;
 import com.phunware.engagement.entities.MessageMetadata;
 import com.phunware.engagement.sample.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MessageDetailAdapter extends RecyclerView.Adapter<MessageDetailAdapter.ViewHolder> {
 
@@ -21,7 +24,12 @@ public class MessageDetailAdapter extends RecyclerView.Adapter<MessageDetailAdap
     private static final int HAS_PROMOTION = 4;
     private static final int IS_READ = 5;
     private static final int HAS_METADATA = 6;
-    private static final int ITEM_COUNT = 7;
+    private static final int RECEIVED_TIME = 7;
+    private static final int ITEM_COUNT = 8;
+
+    private SimpleDateFormat dateFormat
+            = new SimpleDateFormat("dd MMM yyyy hh:mm:ss a", Locale.US);
+    private Date date = new Date();
 
     public interface OnItemClickListener {
 
@@ -83,32 +91,34 @@ public class MessageDetailAdapter extends RecyclerView.Adapter<MessageDetailAdap
             case CAMPAIGN_ID:
                 holder.title.setText(R.string.item_campaign_id);
                 if (mMessage != null) {
-                    holder.subtitle.setText(String.valueOf(mMessage.campaignId()));
+                    holder.subtitle.setText(String.valueOf(mMessage.campaignId));
                 }
                 break;
             case CAMPAIGN_TYPE:
                 holder.title.setText(R.string.item_campaign_type);
                 if (mMessage != null) {
-                    holder.subtitle.setText(mMessage.campaignType());
+                    holder.subtitle.setText(mMessage.campaignType);
                 }
                 break;
             case NOTIFICATION_TITLE:
-                holder.title.setText(R.string.item_notification_title);
+                holder.title.setText(
+                        R.string.item_notification_title);
                 if (mMessage != null) {
-                    holder.subtitle.setText(mMessage.notificationTitle());
+                    holder.subtitle.setText(mMessage.notificationTitle);
                 }
                 break;
             case NOTIFICATION_MESSAGE:
-                holder.title.setText(R.string.item_notification_message);
+                holder.title.setText(
+                        R.string.item_notification_message);
                 if (mMessage != null) {
-                    holder.subtitle.setText(mMessage.notificationMessage());
+                    holder.subtitle.setText(mMessage.notificationMessage);
                 }
                 break;
             case HAS_PROMOTION:
                 holder.title.setText(R.string.item_has_promotion);
                 if (mMessage != null) {
-                    if (mMessage.promotionTitle() != null
-                            && !mMessage.promotionTitle().isEmpty()) {
+                    if (mMessage.promotionTitle != null
+                            && !mMessage.promotionTitle.isEmpty()) {
                         holder.subtitle.setText(R.string.yes);
 
                         holder.itemView.setOnClickListener(mPromotionClickListener);
@@ -120,7 +130,7 @@ public class MessageDetailAdapter extends RecyclerView.Adapter<MessageDetailAdap
             case IS_READ:
                 holder.title.setText(R.string.item_is_read);
                 if (mMessage != null) {
-                    if (mMessage.isRead()) {
+                    if (mMessage.isRead) {
                         holder.subtitle.setText(R.string.yes);
                     } else {
                         holder.subtitle.setText(R.string.no);
@@ -131,13 +141,25 @@ public class MessageDetailAdapter extends RecyclerView.Adapter<MessageDetailAdap
             case HAS_METADATA:
                 holder.title.setText(R.string.item_has_metadata);
                 if (mMessage != null) {
-                    List<MessageMetadata> metadata = mMessage.metadata();
+                    List<MessageMetadata> metadata = mMessage.metadata;
                     if (metadata != null && !metadata.isEmpty()) {
                         holder.subtitle.setText(R.string.yes);
 
                         holder.itemView.setOnClickListener(mMetadataClickListener);
                     } else {
                         holder.subtitle.setText(R.string.no);
+                    }
+                }
+                break;
+            case RECEIVED_TIME:
+                holder.title.setText(R.string.item_received_time);
+                if (mMessage != null) {
+                    long time = mMessage.receivedTime;
+                    if (time > 0) {
+                        date.setTime(time);
+                        holder.subtitle.setText(dateFormat.format(date));
+                    } else {
+                        holder.subtitle.setText(R.string.item_value_time_not_set);
                     }
                 }
                 break;
@@ -154,10 +176,11 @@ public class MessageDetailAdapter extends RecyclerView.Adapter<MessageDetailAdap
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title;
         TextView subtitle;
+
         public ViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.title);
-            subtitle = (TextView) itemView.findViewById(R.id.subtitle);
+            title = itemView.findViewById(R.id.title);
+            subtitle = itemView.findViewById(R.id.subtitle);
         }
     }
 }
