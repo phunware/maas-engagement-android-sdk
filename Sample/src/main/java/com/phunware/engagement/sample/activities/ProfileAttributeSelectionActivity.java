@@ -60,7 +60,8 @@ public class ProfileAttributeSelectionActivity extends AppCompatActivity {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_single_line,
+            View v = LayoutInflater.from(parent.getContext()).inflate(
+                    R.layout.row_single_line,
                     parent, false);
             return new ViewHolder(v);
         }

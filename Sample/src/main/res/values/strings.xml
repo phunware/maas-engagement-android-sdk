@@ -68,9 +68,10 @@
     <string name="checkin_failed">Check In Failed</string>
 
     <!-- Replace the following strings with values from MaaS Portal -->
-    <string name="app_id"></string>
-    <string name="access_key"></string>
-    <string name="signature_key"></string>
+    <string name="app_id">YOUR_APP_ID_HERE</string>
+    <string name="access_key">YOUR_ACCESS_KEY_HERE</string>
+    <string name="signature_key">YOUR_SIGNATURE_KEY_HERE</string>
+    <string name="map_key">YOUR_API_KEY_HERE</string>
 
     <plurals name="tags">
         <item quantity="zero">No tags</item>
@@ -87,6 +88,7 @@
     <string name="item_expiration_date">Expiration Date</string>
     <string name="item_is_read">Is Read</string>
     <string name="item_has_metadata">Has Metadata</string>
+    <string name="item_received_time">Received Time</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="no_messages">Messages will show up here once they are triggered by location updates or store announcements.</string>
@@ -99,5 +101,7 @@
     <string name="mark_read_confirm_message">Are you sure you want to mark this message as read?  You cannot undo this action.</string>
     <string name="unread">UNREAD</string>
     <string name="unexpired">ACTIVE</string>
+    <string name="mapview">MapView</string>
+    <string name="item_value_time_not_set">Time not set</string>
 
 </resources>

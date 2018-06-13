@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * Displays, and allows the user to edit, the profile attributes for this device.
- *
+ * <p>
  * <p>There are three steps to displaying the data in this fragment.
  * <ol>
  * <li>Download the Attribute Metadata, which includes all possible attributes, and they're
@@ -40,9 +40,9 @@ import java.util.List;
  * <li>Download the current UserAttribute, if it has been set.  This will return an error if one
  * doesn't exist.</li>
  * </ol>
- *
+ * <p>
  * <p>All of these except the first can possible return nothing, so we need to handle those cases.
- *
+ * <p>
  * <p>When the user decides to update a value, we send the entire new set of values to the server
  * to be updated.  This is important as the server will overwrite values with whatever we send,
  * including null.
@@ -64,9 +64,10 @@ public class AttributeFragment extends Fragment implements AttributeAdapter.OnCl
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_attribute, container, false);
-        mRecyclerView = (RecyclerView) v.findViewById(R.id.list);
+                             @Nullable Bundle savedInstanceState) {
+        View v = inflater.inflate(
+                R.layout.fragment_attribute, container, false);
+        mRecyclerView = v.findViewById(R.id.list);
         mLoadingView = v.findViewById(R.id.loading);
 
         // This eats all touch events while the loading view is active.
@@ -106,7 +107,7 @@ public class AttributeFragment extends Fragment implements AttributeAdapter.OnCl
 
     /**
      * Step 1, download attribute metadata.
-     *
+     * <p>
      * <p>This will download all possible values, irrespective of whether they have a value, and
      * their possible values.  This will allow us to show items that currently aren't set and also
      * provide a list of options for the user to set.
@@ -132,7 +133,7 @@ public class AttributeFragment extends Fragment implements AttributeAdapter.OnCl
 
     /**
      * Step 2, download profile attributes.
-     *
+     * <p>
      * <p>This gets all of the current values of the attributes.
      */
     private void downloadProfileAttributes() {
@@ -144,7 +145,7 @@ public class AttributeFragment extends Fragment implements AttributeAdapter.OnCl
             new Callback<ProfileAttribute>() {
                 @Override
                 public void onSuccess(ProfileAttribute data) {
-                    Logging.v(TAG, "Downloaded " + data.profileAttributes().size()
+                    Logging.v(TAG, "Downloaded " + data.profileAttributes.size()
                             + " profile attributes.", null);
                     mProfileAttribute = data;
                     getActivity().runOnUiThread(new Runnable() {
@@ -181,9 +182,9 @@ public class AttributeFragment extends Fragment implements AttributeAdapter.OnCl
         List<AttributeAdapter.Attribute> profileAttributes =
                 new ArrayList<>(mAttributeMetadataItems.size());
         for (AttributeMetadataItem item : mAttributeMetadataItems) {
-            if (mProfileAttribute.profileAttributes().containsKey(item.name())) {
+            if (mProfileAttribute.profileAttributes.containsKey(item.getName())) {
                 profileAttributes.add(new AttributeAdapter.Attribute(item,
-                        mProfileAttribute.profileAttributes().get(item.name())
+                        mProfileAttribute.profileAttributes.get(item.getName())
                 ));
             } else {
                 profileAttributes.add(new AttributeAdapter.Attribute(item,
@@ -200,8 +201,8 @@ public class AttributeFragment extends Fragment implements AttributeAdapter.OnCl
     @Override
     public void onClick(AttributeAdapter.Attribute attribute) {
         AttributeMetadataItem metadata = attribute.getMetadata();
-        showProfileAttributeSelectionDialog(metadata.name(),
-                (ArrayList<String>) metadata.allowedValues()
+        showProfileAttributeSelectionDialog(metadata.getName(),
+                (ArrayList<String>) metadata.getAllowedValues()
         );
     }
 
@@ -227,7 +228,7 @@ public class AttributeFragment extends Fragment implements AttributeAdapter.OnCl
         // Update the view to show the loading overlay
         mLoadingView.setVisibility(View.VISIBLE);
 
-        HashMap<String, String> attributes = new HashMap<>(mProfileAttribute.profileAttributes());
+        HashMap<String, String> attributes = new HashMap<>(mProfileAttribute.profileAttributes);
 
         if (value == null || value.isEmpty()) {
             attributes.remove(key);

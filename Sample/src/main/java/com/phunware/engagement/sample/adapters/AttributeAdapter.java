@@ -27,7 +27,7 @@ public class AttributeAdapter extends RecyclerView.Adapter<AttributeAdapter.View
         public Attribute(AttributeMetadataItem metadata, Object value) {
             mType = TYPE_PROFILE;
             mMetadata = metadata;
-            mName = mMetadata.name();
+            mName = mMetadata.getName();
             mValue = value;
         }
 
@@ -110,8 +110,8 @@ public class AttributeAdapter extends RecyclerView.Adapter<AttributeAdapter.View
 
         public ViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.title);
-            subtitle = (TextView) itemView.findViewById(R.id.subtitle);
+            title = itemView.findViewById(R.id.title);
+            subtitle = itemView.findViewById(R.id.subtitle);
         }
     }
 
