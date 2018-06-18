@@ -18,7 +18,7 @@ This is Phunware's Android SDK for Engagement. Visit http://maas.phunware.com/ f
   
 * [API reference](http://phunware.github.io/maas-engagement-android-sdk/)  
 * Developer documentation can be found at  
-[developer.phunware.com](https://developer.phunware.com/pages/viewpage.action?pageId=3409274)  
+[developer.phunware.com](https://developer.phunware.com/pages/viewpage.action?pageId=3410099)  
   
 Attribution  
 -----------  
