@@ -1,4 +1,9 @@
 # Engagement SDK Changelog
+
+## Version 3.5.1 (Monday, Jun 25th, 2018)
+#### Bug fixes / performance enhancements
+* Fixed issue with recurring notifications for campaigns with metadata
+
 ## Version 3.5.0 (Monday, Jun 4th, 2018)
 #### Features
 * Faster geofence detections on app install
