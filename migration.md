@@ -1,9 +1,58 @@
 # Android O Updates for Engagement
 
-## Notification Channels
+## 3.5.x to 3.5.2
 
-In this next release of Engagement there will be a few major changes that are
-needed in order to handle Android O's background limitations.
+#### General
+
+This release has feature enhancements.  See CHANGELOG.md for more info.
+
+##### Upgrade Steps
+
+1. Open the `build.gradle` from your project and change the dependency to implementation 'com.phunware.engagement:mobile-engagement:3.5.2' and then sync the project.
+
+## 3.4.0 to 3.5.x
+
+#### General
+
+This release has major bug fixes and feature enhancements.  See CHANGELOG.md for more info.
+
+##### Upgrade Steps
+
+1. Open the `build.gradle` from your project and change the dependency to compile 'com.phunware.engagement:mobile-engagement:3.5.0' and then sync the project.
+
+## 3.3.x to 3.4.0
+
+### Library updates
+- compileSdkVersion - 27
+- Support Library version - 27.1.0
+- Google Play Services version - 11.8.0
+- Okhttp version - 3.10.0
+
+#### General
+
+This release has bug fixes and feature enhancements.  See CHANGELOG.md for more info.
+
+##### Upgrade Steps
+
+1. Open the `build.gradle` from your project and change the dependency to compile 'com.phunware.engagement:mobile-engagement:3.4.0' and then sync the project.
+
+## 3.2.0 to 3.3.0
+
+#### General
+
+This release has bug fixes and feature enhancements.  See CHANGELOG.md for more info.
+
+##### Upgrade Steps
+
+1. Open the `build.gradle` from your project and change the dependency to compile 'com.phunware.engagement:mobile-engagement:3.3.0' and then sync the project.
+
+## 3.1.x to 3.2.0
+
+#### General
+
+This release has major changes that are needed in order to handle Android O's background limitations.
+
+##### Upgrade Steps
 
 Major changes have occurred in the **NotificationCustomizationService**
 
@@ -47,8 +96,9 @@ abstract public void editNotificationChannel(
 
 ## Foreground Beacon Ranging
 
-As alluded to above, the *BeaconRangingService* now spins up a foreground
+The *BeaconRangingService* now spins up a foreground
 notification when started. In doing so, we also provide a way to stylize
 the notification through the same *NotificationCustomizationService* that has
 been provided. By implementing the *editForegroundNotification* method the
 user then modifies the style of the foreground notification being shown.
+

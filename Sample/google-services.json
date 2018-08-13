@@ -8,14 +8,14 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "invalidId",
+        "mobilesdk_app_id": "1:0000000000:android:aabbccdd",
         "android_client_info": {
           "package_name": "com.phunware.engagement.sample"
         }
       },
       "oauth_client": [
         {
-          "client_id": "invalidId",
+          "client_id": "xxxx-xxxx",
           "client_type": 1,
           "android_info": {
             "package_name": "com.phunware.engagement.sample",
@@ -23,7 +23,7 @@
           }
         },
         {
-          "client_id": "invalidId",
+          "client_id": "xxxx-xxxx",
           "client_type": 1,
           "android_info": {
             "package_name": "com.phunware.engagement.sample",
@@ -31,7 +31,7 @@
           }
         },
         {
-          "client_id": "invalidId",
+          "client_id": "xxx-xxx",
           "client_type": 1,
           "android_info": {
             "package_name": "com.phunware.engagement.sample",
@@ -39,7 +39,7 @@
           }
         },
         {
-          "client_id": "invalidId",
+          "client_id": "xxx-xxx",
           "client_type": 3
         }
       ],

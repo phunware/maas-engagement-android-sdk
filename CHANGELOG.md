@@ -1,5 +1,10 @@
 # Engagement SDK Changelog
 
+## Version 3.5.2 (Monday, Aug 13th, 2018)
+#### Features
+* Delaying geofence requests until device has valid location
+* Added Campaign type constants for public use
+
 ## Version 3.5.1 (Monday, Jun 25th, 2018)
 #### Bug fixes / performance enhancements
 * Fixed issue with recurring notifications for campaigns with metadata

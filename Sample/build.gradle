@@ -41,18 +41,17 @@ android {
 }
 
 dependencies {
-    compile 'com.phunware.engagement:mobile-engagement:3.5.1'
-    compile('com.phunware.engagement:beacon-location-manager:3.5.1') {
+    implementation 'com.phunware.engagement:mobile-engagement:3.5.2'
+    implementation('com.phunware.engagement:beacon-location-manager:3.5.2') {
         exclude group: 'com.phunware.engagement', module: 'mobile-engagement'
     }
 
-    compile 'com.android.support:appcompat-v7:27.1.0'
-    compile 'com.android.support:design:27.1.0'
-    compile 'com.google.android.gms:play-services-maps:11.8.0'
-    compile 'com.android.support:multidex:1.0.1'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support:design:27.1.0'
+    implementation 'com.google.android.gms:play-services-maps:11.8.0'
+    implementation 'com.android.support:multidex:1.0.1'
 
-    compile 'com.jakewharton:process-phoenix:1.0.2'
-    compile 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
+    implementation 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
 }
 
 apply plugin: 'com.google.gms.google-services'
