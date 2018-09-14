@@ -7,7 +7,7 @@
 This release has major bug fixes. See CHANGELOG.md for more info.
 
 ### Library updates
-- Support Library version - 27.1.1
+- Support Library version - 27.1.0
 
 ##### Upgrade Steps
 
