@@ -45,7 +45,6 @@ ext {
     minSdkVersion = 19
     targetSdkVersion = 26
 
-    supportLibVersion = '27.1.0'
+    supportLibVersion = '27.1.1'
     junitVersion = '4.12'
-    okhttpVersion = '3.2.0'
 }

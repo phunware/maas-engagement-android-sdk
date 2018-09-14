@@ -2,7 +2,7 @@
   
 [Android MaaS Engagement Documentation](http://phunware.github.io/maas-engagement-android-sdk/)  
 =======  
-**Version 3.5.2**
+**Version 3.5.3**
 =======  
 ________________  
   

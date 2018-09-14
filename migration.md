@@ -1,14 +1,17 @@
 # Android O Updates for Engagement
 
-## 3.5.x to 3.5.2
+## 3.5.x to 3.5.3
 
 #### General
 
-This release has feature enhancements.  See CHANGELOG.md for more info.
+This release has major bug fixes. See CHANGELOG.md for more info.
+
+### Library updates
+- Support Library version - 27.1.1
 
 ##### Upgrade Steps
 
-1. Open the `build.gradle` from your project and change the dependency to implementation 'com.phunware.engagement:mobile-engagement:3.5.2' and then sync the project.
+1. Open the `build.gradle` from your project and change the dependency to implementation 'com.phunware.engagement:mobile-engagement:3.5.3' and then sync the project.
 
 ## 3.4.0 to 3.5.x
 

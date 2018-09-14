@@ -41,13 +41,13 @@ android {
 }
 
 dependencies {
-    implementation 'com.phunware.engagement:mobile-engagement:3.5.2'
+    implementation 'com.phunware.engagement:mobile-engagement:3.5.3'
     implementation('com.phunware.engagement:beacon-location-manager:3.5.2') {
         exclude group: 'com.phunware.engagement', module: 'mobile-engagement'
     }
 
-    implementation 'com.android.support:appcompat-v7:27.1.0'
-    implementation 'com.android.support:design:27.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
     implementation 'com.google.android.gms:play-services-maps:11.8.0'
     implementation 'com.android.support:multidex:1.0.1'
 
