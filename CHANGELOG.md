@@ -1,5 +1,12 @@
 # Engagement SDK Changelog
 
+## Version 3.5.3 (Friday, Sep 14th, 2018)
+
+#### Bug fixes / performance enhancements
+* Added support to display campaign notifications without title
+* Fixed crash during device reboot for apps that have not initialized Engagement SDK
+* Upgraded to Core 3.4.2
+
 ## Version 3.5.2 (Monday, Aug 13th, 2018)
 #### Features
 * Delaying geofence requests until device has valid location
