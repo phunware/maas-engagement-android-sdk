@@ -1,8 +1,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
-    <item android:id="@+id/action_enable_push_notifications"
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_enable_push_notifications"
+        android:orderInCategory="101"
         android:title="@string/action_enable_push_notifications"
-        android:orderInCategory="100" app:showAsAction="never" />
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_intercept_msg"
+        android:checkable="true"
+        android:orderInCategory="102"
+        android:title="@string/enable_dwell" />
 </menu>
