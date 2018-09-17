@@ -34,6 +34,7 @@ import com.phunware.engagement.sample.fragments.GeozoneListFragment;
 import com.phunware.engagement.sample.fragments.LogFragment;
 import com.phunware.engagement.sample.fragments.MessageDetailFragment;
 import com.phunware.engagement.sample.fragments.MessageListFragment;
+import com.phunware.engagement.sample.util.MessageInterceptor;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,6 +46,12 @@ public class MainActivity extends AppCompatActivity
 
     private static final int PERMISSIONS_REQUEST_LOCATION = 10;
     private static final String TAG_LOG_FRAGMENT = "LogFragmentTag";
+
+    private static final String PREFS_NAME = "engagement";
+    private static final String PREFS_KEY_INTERCEPT_MSG = "intercept_msg";
+
+    private boolean interceptorAdded = false;
+    private MessageInterceptor messageInterceptor = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -133,13 +140,28 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean intercept = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+                .getBoolean(PREFS_KEY_INTERCEPT_MSG, false);
+        menu.findItem(R.id.action_intercept_msg).setChecked(intercept);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_enable_push_notifications:
                 Engagement.enablePushNotifications(this.getApplicationContext());
                 Toast.makeText(this.getApplicationContext(), "Push Notifications now Enabled",
                         Toast.LENGTH_LONG).show();
-                return true;
+                break;
+            case R.id.action_intercept_msg:
+                item.setChecked(!item.isChecked());
+                getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit()
+                        .putBoolean(PREFS_KEY_INTERCEPT_MSG, item.isChecked())
+                        .commit();
+                addOrRemoveMessageInterceptor();
+                break;
             case android.R.id.home:
                 if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
                     getSupportFragmentManager().popBackStack();
@@ -148,6 +170,22 @@ public class MainActivity extends AppCompatActivity
             default:
                 return mDrawerToggle.onOptionsItemSelected(item)
                         || super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
+    private void addOrRemoveMessageInterceptor() {
+        boolean intercept = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+                .getBoolean(PREFS_KEY_INTERCEPT_MSG, false);
+        if (intercept && !interceptorAdded) {
+            messageInterceptor = new MessageInterceptor(this);
+            messageInterceptor.listenForMessages();
+            interceptorAdded = true;
+        } else if (!intercept && interceptorAdded) {
+            if (messageInterceptor != null) {
+                messageInterceptor.stopListening();
+                interceptorAdded = false;
+            }
         }
     }
 
