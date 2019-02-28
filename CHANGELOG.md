@@ -1,5 +1,14 @@
 # Engagement SDK Changelog
 
+## Version 3.5.4 (Wednesday, Feb 27th, 2019)
+
+#### Features
+* Added support for Android 9.0 (Pie)
+* Added support for metadata in OnDemand broadcast
+* Updated to Google Play Services 16.0.0
+* Updated to Core 3.5.0
+* Built with Android Support Library 28.0.0
+
 ## Version 3.5.3 (Friday, Sep 14th, 2018)
 
 #### Bug fixes / performance enhancements
