@@ -43,7 +43,7 @@
             android:name="com.phunware.engagement.sample.EditNotificationService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.phunware.Engagement.EDIT_NOTIFICATION" />
+                <action android:name="com.phunware.engagement.EDIT_NOTIFICATION" />
             </intent-filter>
         </service>
 
