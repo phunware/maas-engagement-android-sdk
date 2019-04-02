@@ -1,9 +1,12 @@
 package com.phunware.engagement.sample.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -15,17 +18,31 @@ import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.phunware.engagement.sample.R;
+import com.phunware.engagement.sample.SampleApplication;
+import com.phunware.engagement.sample.activities.MainActivity;
 import com.phunware.engagement.sample.adapters.LogMessageAdapter;
 import com.phunware.engagement.sample.models.LogMessage;
 import com.phunware.engagement.sample.sql.LogMessageContract;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URI;
 
 /**
  * Displays log messages for the current config to the user.
@@ -35,6 +52,7 @@ public class LogFragment extends Fragment implements LoaderManager.LoaderCallbac
 
     private static final String TAG = LogFragment.class.getSimpleName();
     public static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL = 15;
+    private boolean mWriteExternal = false;
 
     private static final String BODY_FORMAT = "Engagement log file.%n%n"
             + "AppId: %s%n"
@@ -90,12 +108,76 @@ public class LogFragment extends Fragment implements LoaderManager.LoaderCallbac
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case com.phunware.engagement.sample.R.id.send:
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || mWriteExternal) {
+                    sendLogFile();
+                }
+                else {
+                    ((MainActivity) getActivity()).checkWriteExternalPermissions();
+                }
+                return true;
             case R.id.filter:
                 View itemView = getActivity().findViewById(R.id.filter);
                 showFilterPopup(itemView);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /**
+     * Allows the user to send the log file. This method will create a copy of the current log file
+     * in a public directory so that it can be sent.
+     */
+    private void sendLogFile() {
+        File file = ((SampleApplication) getActivity().getApplication())
+                .getFileLogger()
+                .getLogFile();
+
+        // create a file in the public location
+        File targetDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DOWNLOADS);
+        File target = null;
+        try {
+            target = File.createTempFile("lm_sample", ".txt", targetDir);
+        } catch (IOException e) {
+            Log.e(TAG, "Failed to create log file at: "
+                    + (targetDir != null ? targetDir.getAbsolutePath() : null), e);
+            Toast.makeText(getActivity(),
+                    com.phunware.engagement.sample.R.string.error_send_log_create_file,
+                    Toast.LENGTH_LONG)
+                    .show();
+            return;
+        }
+
+        // copy the log file there
+        InputStream in = null;
+        OutputStream out = null;
+        try {
+            in = new BufferedInputStream(new FileInputStream(file));
+            out = new BufferedOutputStream(new FileOutputStream(target));
+
+            byte[] buf = new byte[4096];
+            int count;
+            while ((count = in.read(buf)) > 0) {
+                out.write(buf, 0, count);
+            }
+
+            Toast.makeText(getActivity(), getString(R.string.send_log_successful, target.toString()), Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            Log.e(TAG, "Failed to copy log file", e);
+            Toast.makeText(getActivity(),
+                    com.phunware.engagement.sample.R.string.error_send_log_copy_file,
+                    Toast.LENGTH_LONG)
+                    .show();
+            return;
+        } finally {
+            try {
+                if (in != null) in.close();
+                if (out != null) out.close();
+            } catch (IOException e) {
+                // don't care
+            }
         }
     }
 
@@ -178,5 +260,10 @@ public class LogFragment extends Fragment implements LoaderManager.LoaderCallbac
     @Override
     public boolean onQueryTextChange(String newText) {
         return onQueryTextSubmit(newText);
+    }
+
+    public void writeExternalPrivsGranted() {
+        mWriteExternal = true;
+        sendLogFile();
     }
 }
