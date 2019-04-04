@@ -52,6 +52,7 @@
     <string name="title_share">Send via…</string>
     <string name="error_send_log_create_file">Failed to create public log file.  Do you have the WRITE_EXTERNAL_STORAGE permission?</string>
     <string name="error_send_log_copy_file">Failed to copy log file to public directory.</string>
+    <string name="send_log_successful">Successfully copied log to path %1$s</string>
     <string name="attr_loading_attributes">Loading Attributes...</string>
     <string name="title_choose_value">Choose a value</string>
     <string name="location">Location</string>

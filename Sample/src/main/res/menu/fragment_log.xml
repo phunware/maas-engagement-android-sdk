@@ -12,7 +12,7 @@
     <item
         android:id="@+id/send"
         android:title="@string/action_send"
-        android:icon="@drawable/ic_send"
+        android:icon="@drawable/ic_baseline_save_alt_24px"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/filter"

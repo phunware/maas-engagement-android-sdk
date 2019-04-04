@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity
 
     private static final int PERMISSIONS_REQUEST_LOCATION = 10;
     private static final String TAG_LOG_FRAGMENT = "LogFragmentTag";
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     private static final String PREFS_NAME = "engagement";
     private static final String PREFS_KEY_INTERCEPT_MSG = "intercept_msg";
@@ -250,6 +252,15 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    public void checkWriteExternalPermissions() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, LogFragment.PERMISSIONS_REQUEST_WRITE_EXTERNAL);
+            }
+        }
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -263,6 +274,19 @@ public class MainActivity extends AppCompatActivity
                     onPermissionsGranted();
                 }
                 return;
+
+            case LogFragment.PERMISSIONS_REQUEST_WRITE_EXTERNAL:
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    LogFragment fragment = (LogFragment) getSupportFragmentManager()
+                            .findFragmentByTag(TAG_LOG_FRAGMENT);
+
+                    if (fragment != null) {
+                        fragment.writeExternalPrivsGranted();
+                    }
+                }
+                break;
 
             default:
                 break;
