@@ -1,5 +1,10 @@
 # Engagement SDK Changelog
 
+## Version 3.6.0 (Tuesday, Apr 30th, 2019)
+
+#### Features
+* Updated geofence implementation to improve detection of geofence transition events
+
 ## Version 3.5.4 (Wednesday, Feb 27th, 2019)
 
 #### Features
