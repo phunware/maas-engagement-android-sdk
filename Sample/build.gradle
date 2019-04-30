@@ -40,8 +40,8 @@ android {
 }
 
 dependencies {
-    implementation 'com.phunware.engagement:mobile-engagement:3.5.4'
-    implementation('com.phunware.engagement:beacon-location-manager:3.5.4') {
+    implementation 'com.phunware.engagement:mobile-engagement:3.6.0'
+    implementation('com.phunware.engagement:beacon-location-manager:3.5.5') {
         exclude group: 'com.phunware.engagement', module: 'mobile-engagement'
     }
 
