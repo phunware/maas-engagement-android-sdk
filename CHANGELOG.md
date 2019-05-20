@@ -1,5 +1,10 @@
 # Engagement SDK Changelog
 
+## Version 3.6.1 (Thursday, May 16th, 2019)
+
+#### Bug fixes / performance enhancements
+* Updated to Firebase Cloud Messaging
+
 ## Version 3.6.0 (Tuesday, Apr 30th, 2019)
 
 #### Features
