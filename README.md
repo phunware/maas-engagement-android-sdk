@@ -2,7 +2,7 @@
   
 [Android MaaS Engagement Documentation](http://phunware.github.io/maas-engagement-android-sdk/)  
 =======  
-**Version 3.6.1**
+**Version 3.6.2**
 =======  
 ________________  
   
@@ -37,7 +37,7 @@ MaaS Engagement uses the following third party components.
   
   We also use Google maps in the sample app. In order to use the locations feature, please replace the `map_key`  in `sample/src/main/res/values/strings.xml` with your map API key.
   
-4. Set up FCM at https://firebase.google.com/docs/android/setup  
+4. Set up GCM at https://developers.google.com/cloud-messaging/android/client  
 5. Create a project on Firebase console  
   
     -> Choose 'Add Firebase to Android app'  

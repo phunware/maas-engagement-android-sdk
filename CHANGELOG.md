@@ -1,4 +1,8 @@
 # Engagement SDK Changelog
+## Version 3.6.2 (Monday, Jan 20th, 2020)
+
+#### Bug fixes / performance enhancements
+* Fixed issues in analytics event tracking
 
 ## Version 3.6.1 (Thursday, May 16th, 2019)
 
