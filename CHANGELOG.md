@@ -1,4 +1,10 @@
 # Engagement SDK Changelog
+
+## Version 3.6.5 (Thursday, Sep 3nd, 2020)
+
+#### Bug fixes / performance enhancements
+* Fixed an issue where the device would lag or produce an ANR when location permissions are allowed "only while using the app".
+
 ## Version 3.6.3 (Monday, Mar 2nd, 2020)
 
 #### Bug fixes / performance enhancements

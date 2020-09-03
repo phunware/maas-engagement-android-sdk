@@ -1,5 +1,15 @@
 # Engagement SDK Migration Guide
 
+## 3.6.3 to 3.6.5
+
+#### General
+
+This release has a bug fix. See CHANGELOG.md for more info.
+
+##### Upgrade Steps
+
+1. Open the `build.gradle` from your project and change the dependency to implementation 'com.phunware.engagement:mobile-engagement:3.6.5' and then sync the project.
+
 ## 3.5.x to 3.6.3
 
 #### General
