@@ -1,9 +1,27 @@
 # Engagement SDK Changelog
 
-## Version 3.6.5 (Thursday, Sep 3nd, 2020)
+## Version 4.0.0-beta-06 *(2020-08-17)*
+#### Bug fix
+* Tiny fix for hasExtras not being updated after downloading metadata info for a push notification.
 
-#### Bug fixes / performance enhancements
-* Fixed an issue where the device would lag or produce an ANR when location permissions are allowed "only while using the app".
+## Version 4.0.0-beta-05 *(2020-08-11)*
+#### Bug fix
+* Tiny fix for a missing annotation causing message extras updates to fail.
+
+## Version 4.0.0-beta-04 *(2020-08-11)*
+#### Features
+* Upgrading to Core SDK 4.0.0-beta-04.
+
+## Version 4.0.0-beta-03 *(2020-08-07)*
+#### Bug fixes
+* Fixed Geofence events with metadata not triggering.
+* Fixed crashes that would show up in our users analytic reports.
+
+## Version 4.0.0-beta-01 *(2020-05-22)*
+#### Features
+* Migrated to androidx
+* Fixed an issue that causes performance lags
+* Updated Google play services and firebase dependencies
 
 ## Version 3.6.3 (Monday, Mar 2nd, 2020)
 
