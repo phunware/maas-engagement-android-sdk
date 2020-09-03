@@ -105,5 +105,6 @@
     <string name="unexpired">ACTIVE</string>
     <string name="mapview">MapView</string>
     <string name="item_value_time_not_set">Time not set</string>
+    <string name="missing_background_location_permission">Background Location permission is missing. Geofence campaigns will not work properly.</string>
 
 </resources>

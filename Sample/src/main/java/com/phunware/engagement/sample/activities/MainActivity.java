@@ -1,6 +1,7 @@
 package com.phunware.engagement.sample.activities;
 
 import android.Manifest;
+import android.Manifest.permission;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -9,7 +10,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -90,11 +90,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void onPermissionsGranted() {
-
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             PwLog.w(TAG_LOG_FRAGMENT, "Please grant location Permission to access Location manager services.");
             return;
+        }
+        if (ContextCompat.checkSelfPermission(this,
+            Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ) {
+            Toast.makeText(this, R.string.missing_background_location_permission,Toast.LENGTH_LONG).show();
         }
 
         // Start the location manager
@@ -229,8 +233,8 @@ public class MainActivity extends AppCompatActivity
         return (hasPermission(Manifest.permission.ACCESS_FINE_LOCATION));
     }
 
-    private boolean canAccessCoarseLocation() {
-        return (hasPermission(Manifest.permission.ACCESS_COARSE_LOCATION));
+    private boolean canAcessBackgroundLocation() {
+        return (hasPermission(permission.ACCESS_BACKGROUND_LOCATION));
     }
 
     private boolean hasPermission(String perm) {
@@ -241,10 +245,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void checkPermissions() {
-        if (!canAccessFineLocation() || !canAccessCoarseLocation()) {
+        if (!canAccessFineLocation() || !canAcessBackgroundLocation()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    permission.ACCESS_BACKGROUND_LOCATION
                 }, PERMISSIONS_REQUEST_LOCATION);
             }
         } else {
