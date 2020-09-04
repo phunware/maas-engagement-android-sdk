@@ -1,38 +1,14 @@
 # Engagement SDK Migration Guide
 
-## 4.0.0-beta-05 to 4.0.0-beta-06
+## 3.6.3 to 3.6.5
 
 #### General
 
-Small bug fix. See CHANGELOG.md.
-
-## 4.0.0-beta-04 to 4.0.0-beta-05
-
-#### General
-
-Small bug fix. See CHANGELOG.md.
-
-## 4.0.0-beta-03 to 4.0.0-beta-04
-
-#### General
-
-Minor Core SDK upgrade. See CHANGELOG.md.
-
-## 4.0.0-beta-01 to 4.0.0-beta-03
-
-#### General
-
-This release has major bug fixes. See CHANGELOG.md for more info.
+This release has a bug fix. See CHANGELOG.md for more info.
 
 ##### Upgrade Steps
 
-1. Open the `build.gradle` from your project and change the dependency to implementation 'com.phunware.engagement:mobile-engagement:4.0.0-beta-02' and then sync the project.
-
-## 3.5.x to 4.0.0-beta-01
-
-##### Migration to androidx
-Engagement SDK 4.0.0 has been migrated to androidx and will work with apps supporting androidx.
-See [Migrating to AndroidX](https://developer.android.com/jetpack/androidx/migrate) to learn how to migrate an existing app.
+1. Open the `build.gradle` from your project and change the dependency to implementation 'com.phunware.engagement:mobile-engagement:3.6.5' and then sync the project.
 
 ## 3.5.x to 3.6.3
 
