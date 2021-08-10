@@ -1,14 +1,13 @@
 package com.phunware.engagement.sample.adapters;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.phunware.engagement.entities.Message;
+import com.phunware.engagement.messages.model.Message;
 import com.phunware.engagement.sample.R;
 
 import java.util.ArrayList;
@@ -43,8 +42,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         holder.badge1.setText(R.string.unread);
 
-        String title = message.notificationTitle();
-        String msg = message.notificationMessage();
+        String title = message.notificationTitle;
+        String msg = message.notificationMessage;
 
         holder.title.setText(title);
         holder.subtitle.setText(msg);
@@ -52,7 +51,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         final Context context = holder.title.getContext();
 
         int unreadColor;
-        if (!message.isRead()) {
+        if (!message.isRead) {
             unreadColor = ContextCompat.getColor(context, R.color.zone_inside_stroke);
         } else {
             unreadColor = ContextCompat.getColor(context, R.color.text_disabled);

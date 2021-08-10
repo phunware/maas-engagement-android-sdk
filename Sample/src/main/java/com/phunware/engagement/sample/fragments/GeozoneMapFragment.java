@@ -1,19 +1,18 @@
 package com.phunware.engagement.sample.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.phunware.engagement.Callback;
-import com.phunware.engagement.entities.Geozone;
 import com.phunware.engagement.location.LocationListener;
 import com.phunware.engagement.location.LocationManager;
-import com.phunware.engagement.log.Logging;
+import com.phunware.engagement.location.model.Geozone;
 import com.phunware.engagement.sample.R;
-import com.phunware.engagement.sample.SampleApplication;
 import com.phunware.engagement.sample.views.GeozoneMapView;
 
 import java.util.List;
@@ -42,8 +41,6 @@ public class GeozoneMapFragment extends Fragment implements LocationListener {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mMap.onCreate(savedInstanceState);
-        mLocationManager = ((SampleApplication) getActivity().getApplication())
-                .getLocationManager();
 
         loadGeozones();
     }
@@ -95,7 +92,7 @@ public class GeozoneMapFragment extends Fragment implements LocationListener {
 
             @Override
             public void onFailed(Throwable e) {
-                Logging.e(TAG, "There was an error loading available geozones.", e);
+                Log.e(TAG, "There was an error loading available geozones.", e);
             }
         });
     }
@@ -117,7 +114,7 @@ public class GeozoneMapFragment extends Fragment implements LocationListener {
 
             @Override
             public void onFailed(Throwable e) {
-                Logging.e(TAG, "Failed to get added geozone: " + id, e);
+                Log.e(TAG, "Failed to get added geozone: " + id, e);
             }
         });
     }
@@ -135,7 +132,7 @@ public class GeozoneMapFragment extends Fragment implements LocationListener {
 
             @Override
             public void onFailed(Throwable e) {
-                Logging.e(TAG, "Failed to get updated geozone: " + id, e);
+                Log.e(TAG, "Failed to get updated geozone: " + id, e);
             }
         });
     }
@@ -153,7 +150,7 @@ public class GeozoneMapFragment extends Fragment implements LocationListener {
 
             @Override
             public void onFailed(Throwable e) {
-                Logging.e(TAG, "Failed to get removed geozone: " + id, e);
+                Log.e(TAG, "Failed to get removed geozone: " + id, e);
             }
         });
     }
