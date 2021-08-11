@@ -3,9 +3,8 @@ package com.phunware.engagement.sample;
 import android.app.NotificationChannel;
 import android.media.RingtoneManager;
 import android.os.Build;
-import android.support.v4.app.NotificationCompat;
-
-import com.phunware.engagement.entities.MessageType;
+import androidx.core.app.NotificationCompat;
+import com.phunware.engagement.messages.MessageType;
 import com.phunware.engagement.messages.services.NotificationCustomizationService;
 
 public class EditNotificationService extends NotificationCustomizationService {
@@ -27,8 +26,7 @@ public class EditNotificationService extends NotificationCustomizationService {
     }
 
     @Override
-    public void editNotificationChannel(NotificationChannel notificationChannel,
-                                        MessageType messageType) {
+    public void editNotificationChannel(NotificationChannel notificationChannel, MessageType messageType) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             switch (messageType) {
                 case BROADCAST:

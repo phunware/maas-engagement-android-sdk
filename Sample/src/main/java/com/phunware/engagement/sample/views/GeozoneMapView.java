@@ -1,7 +1,7 @@
 package com.phunware.engagement.sample.views;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -12,7 +12,7 @@ import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.phunware.engagement.entities.Geozone;
+import com.phunware.engagement.location.model.Geozone;
 import com.phunware.engagement.sample.R;
 import com.phunware.engagement.sample.util.MovementUtils;
 
@@ -79,7 +79,7 @@ public class GeozoneMapView extends MapView implements OnMapReadyCallback {
         }
 
         Circle mapCircle = mMap.addCircle(createCircleOptionsForGeozone(geozone));
-        mZoneCircles.put(geozone.id(), mapCircle);
+        mZoneCircles.put(geozone.id, mapCircle);
     }
 
     /**
@@ -94,14 +94,14 @@ public class GeozoneMapView extends MapView implements OnMapReadyCallback {
             return;
         }
 
-        Circle circle = mZoneCircles.get(geozone.id());
+        Circle circle = mZoneCircles.get(geozone.id);
         if (circle == null) {
             addGeozone(geozone);
             return;
         }
 
-        circle.setCenter(new LatLng(geozone.latitude(), geozone.longitude()));
-        circle.setRadius(geozone.radius());
+        circle.setCenter(new LatLng(geozone.latitude, geozone.longitude));
+        circle.setRadius(geozone.radius);
         circle.setFillColor(getFillColor(geozone));
         circle.setStrokeColor(getStrokeColor(geozone));
     }
@@ -118,7 +118,7 @@ public class GeozoneMapView extends MapView implements OnMapReadyCallback {
             return;
         }
 
-        Circle circle = mZoneCircles.remove(geozone.id());
+        Circle circle = mZoneCircles.remove(geozone.id);
         if (circle == null) {
             return;
         }
@@ -133,13 +133,13 @@ public class GeozoneMapView extends MapView implements OnMapReadyCallback {
      * @return A CircleOptions object that can be used to identify this geozone on the map.
      */
     private CircleOptions createCircleOptionsForGeozone(Geozone geozone) {
-        final LatLng location = new LatLng(geozone.latitude(), geozone.longitude());
+        final LatLng location = new LatLng(geozone.latitude, geozone.longitude);
         final int fillColor = getFillColor(geozone);
         final int strokeColor = getStrokeColor(geozone);
 
         return new CircleOptions()
                 .center(location)
-                .radius(geozone.radius())
+                .radius(geozone.radius)
                 .fillColor(fillColor)
                 .strokeColor(strokeColor);
     }
@@ -150,9 +150,9 @@ public class GeozoneMapView extends MapView implements OnMapReadyCallback {
      * @return The fill color to identify this geozone.
      */
     private int getFillColor(Geozone geozone) {
-        if (geozone.isInside()) {
+        if (geozone.isInside) {
             return ContextCompat.getColor(getContext(), R.color.zone_inside_fill);
-        } else if (geozone.isMonitored()) {
+        } else if (geozone.isMonitored) {
             return ContextCompat.getColor(getContext(), R.color.zone_monitored_fill);
         } else {
             return ContextCompat.getColor(getContext(), R.color.zone_default_fill);
@@ -165,9 +165,9 @@ public class GeozoneMapView extends MapView implements OnMapReadyCallback {
      * @return The stroke color to identify this geozone.
      */
     private int getStrokeColor(Geozone geozone) {
-        if (geozone.isInside()) {
+        if (geozone.isInside) {
             return ContextCompat.getColor(getContext(), R.color.zone_inside_stroke);
-        } else if (geozone.isMonitored()) {
+        } else if (geozone.isMonitored) {
             return ContextCompat.getColor(getContext(), R.color.zone_monitored_stroke);
         } else {
             return ContextCompat.getColor(getContext(), R.color.zone_default_stroke);

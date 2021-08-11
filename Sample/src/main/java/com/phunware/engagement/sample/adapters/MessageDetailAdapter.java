@@ -1,13 +1,12 @@
 package com.phunware.engagement.sample.adapters;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.phunware.engagement.entities.Message;
-import com.phunware.engagement.entities.MessageMetadata;
+import com.phunware.engagement.messages.model.Message;
+import com.phunware.engagement.messages.model.MessageMetadata;
 import com.phunware.engagement.sample.R;
 
 import java.text.SimpleDateFormat;
@@ -154,8 +153,8 @@ public class MessageDetailAdapter extends RecyclerView.Adapter<MessageDetailAdap
             case RECEIVED_TIME:
                 holder.title.setText(R.string.item_received_time);
                 if (mMessage != null) {
-                    long time = mMessage.receivedTime;
-                    if (time > 0) {
+                    Long time = mMessage.sentTime;
+                    if (time != null && time > 0) {
                         date.setTime(time);
                         holder.subtitle.setText(dateFormat.format(date));
                     } else {

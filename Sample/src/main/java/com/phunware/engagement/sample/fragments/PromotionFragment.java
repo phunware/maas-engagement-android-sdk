@@ -1,15 +1,15 @@
 package com.phunware.engagement.sample.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.TextView;
 
-import com.phunware.engagement.entities.Message;
+import com.phunware.engagement.messages.model.Message;
 import com.phunware.engagement.sample.R;
 
 public class PromotionFragment extends Fragment {
