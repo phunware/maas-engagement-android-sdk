@@ -8,7 +8,7 @@ Phunware's Engagement SDK for Android. Visit https://www.phunware.com/ for more 
 * minSdk 23.
 * AndroidX.
 
-## Download
+### Download
 Add the following repository to your top level `build.gradle` file:
 ```groovy
 repositories {
@@ -25,22 +25,31 @@ dependencies {
 }
 ```
 
-## Android project setup
-To use any of the Phunware MaaS SDKs you'll need to add the following entries to your AndroidManifest.xml:
+### Android project setup
+##### Keys
+To use any of the Phunware MaaS SDKs you'll need to add the following entries to your AndroidManifest.xml, making sure to replace the `value` properties with your actual App ID and Access Key:
 
 ``` xml
 <meta-data
     android:name="com.phunware.maas.APPLICATION_ID"
-    android:value="${appId}"/>
+    android:value="YOUR_APP_ID"/>
 
 <meta-data
     android:name="com.phunware.maas.ACCESS_KEY"
-    android:value="${accessKey}"/>
+    android:value="YOUR_ACCESS_KEY"/>
 ```
 
 For instructions on how to obtain an App ID and an Access key, please see the `MaaS Setup` section below.
 
-## Usage
+##### Permissions
+```xml
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+```
+
+### Usage
 ##### Initializing the SDK
 
 ```kotlin
@@ -58,7 +67,7 @@ Engagement.enablePushNotifications()
 Note: Android doesn't require any permissions in order to enable push notifications. If you feel you don't need to display any information about this to your user, you can simply call the above method immediately after calling `init()`.
 
 ##### Enabling location features
-Phunware's Engagement SDK supports location based campaigns. To enable that, you need to first make sure your app has been given location permissions (including background location permissions).
+Phunware's Engagement SDK supports location based campaigns. To enable that, you need to first make sure your app has been granted location permissions (including background location permissions).
 Note: Background location permission (`ACCESS_BACKGROUND_LOCATION`) is important to make sure the SDK detects when your user has entered or exited a Geofence even when the app is in background.
 After being granted permissions, enable location based campaigns by calling:
 
@@ -81,7 +90,7 @@ or, to access a specific message:
 Engagement.fetchMessage(messageId, Callback<Message>() {})
 ```
 
-## MaaS Setup
+### MaaS Setup
 -------
 1. Create a new Android application in the [MaaS portal](https://maas.phunware.com/)
 2. Your new MaaS application will contain an `Application ID` and an `Access key` that you'll add to the metadata entries of your `AndroidManifest.xml` as mentioned in the `Android project setup` section above.
