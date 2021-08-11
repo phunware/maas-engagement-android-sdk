@@ -9,7 +9,7 @@ Phunware's Engagement SDK for Android. Visit https://www.phunware.com/ for more 
 * AndroidX.
 
 ## Download
-Add the following repository to your top level `build.gradle` file.
+Add the following repository to your top level `build.gradle` file:
 ```groovy
 repositories {
     maven {
@@ -18,7 +18,7 @@ repositories {
 }
 ```
 
-Add the following dependency to your app level `build.gradle` file.
+Add the following dependency to your app level `build.gradle` file:
 ```groovy
 dependencies {
     implementation "com.phunware.engagement:mobile-engagement:<version>"
