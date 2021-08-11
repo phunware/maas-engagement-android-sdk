@@ -53,7 +53,7 @@ For instructions on how to obtain an App ID and an Access key, please see the `M
 ##### Initializing the SDK
 
 ```kotlin
-Engagement.init(applicationContext)
+Engagement.init(applicationContext: Context)
 ```
 
 ##### Enabling push notifications
@@ -81,13 +81,13 @@ You're all set to receive Engagement Messages in your App!
 You can access messages sent by MaaS by calling:
 
 ```kotlin
-Engagement.fetchMessages(startDate, endDate, Callback<List<Message>>())
+Engagement.fetchMessages(startDate: Date, endDate: Date, callback: Callback<List<Message>>)
 ```
 
 or, to access a specific message:
 
 ```kotlin
-Engagement.fetchMessage(messageId, Callback<Message>() {})
+Engagement.fetchMessage(messageId: Long, callback: Callback<Message>)
 ```
 
 ### MaaS Setup
