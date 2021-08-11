@@ -2,9 +2,9 @@ package com.phunware.engagement.sample.fragments;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +15,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.phunware.engagement.Callback;
 import com.phunware.engagement.Engagement;
-import com.phunware.engagement.entities.Geozone;
+import com.phunware.engagement.location.model.Geozone;
 import com.phunware.engagement.sample.R;
 import com.phunware.engagement.sample.views.GeozoneMapView;
 
@@ -39,7 +39,7 @@ public class GeozoneDetailFragment extends Fragment {
 
         if (zone != null) {
             Bundle args = new Bundle();
-            args.putLong(EXTRA_ID, zone.id());
+            args.putLong(EXTRA_ID, zone.id);
             f.setArguments(args);
         }
 
@@ -103,11 +103,11 @@ public class GeozoneDetailFragment extends Fragment {
     private void setGeozone(Geozone geozone) {
         mGeozone = geozone;
 
-        mTitle.setText(geozone.name());
-        mId.setText(geozone.locationCode());
+        mTitle.setText(geozone.name);
+        mId.setText(geozone.locationCode);
 
         int tagCount = 0;
-        List<String> tags = geozone.tags();
+        List<String> tags = geozone.tags;
         if (tags != null) {
             tagCount = tags.size();
         }
@@ -118,7 +118,7 @@ public class GeozoneDetailFragment extends Fragment {
     }
 
     private void onTagsClicked() {
-        List<String> tags = mGeozone.tags();
+        List<String> tags = mGeozone.tags;
         if (tags == null || tags.isEmpty()) {
             return;
         }

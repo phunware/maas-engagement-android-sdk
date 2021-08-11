@@ -3,11 +3,11 @@ package com.phunware.engagement.sample.fragments;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.StyleSpan;
@@ -17,18 +17,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import androidx.annotation.NonNull;
 import com.phunware.engagement.Callback;
 import com.phunware.engagement.Engagement;
-import com.phunware.engagement.entities.Message;
-import com.phunware.engagement.entities.MessageMetadata;
+import com.phunware.engagement.messages.callback.MessageReadCallback;
+import com.phunware.engagement.messages.model.Message;
+import com.phunware.engagement.messages.model.MessageMetadata;
 import com.phunware.engagement.sample.R;
 import com.phunware.engagement.sample.adapters.MessageDetailAdapter;
 import com.phunware.engagement.sample.views.DividerItemDecoration;
-
 import java.util.List;
 
-public class MessageDetailFragment extends Fragment implements
-        MessageDetailAdapter.OnItemClickListener {
+public class MessageDetailFragment extends Fragment implements MessageDetailAdapter.OnItemClickListener {
 
     private static final String TAG = MessageDetailFragment.class.getSimpleName();
 
@@ -39,26 +39,26 @@ public class MessageDetailFragment extends Fragment implements
     private ProgressBar mProgress;
     private MessageDetailAdapter mAdapter;
 
-    public static Fragment newInstance(long messageId) {
-        MessageDetailFragment f = new MessageDetailFragment();
+    public static MessageDetailFragment newInstance(long messageId) {
+        MessageDetailFragment messageDetailFragment = new MessageDetailFragment();
 
         Bundle args = new Bundle();
         args.putLong(EXTRA_MESSAGE_ID, messageId);
-        f.setArguments(args);
+        messageDetailFragment.setArguments(args);
 
-        return f;
+        return messageDetailFragment;
     }
 
     public static MessageDetailFragment newInstance(Message message) {
-        MessageDetailFragment f = new MessageDetailFragment();
+        MessageDetailFragment messageDetailFragment = new MessageDetailFragment();
 
         if (message != null) {
             Bundle args = new Bundle();
             args.putParcelable(EXTRA_MESSAGE, message);
-            f.setArguments(args);
+            messageDetailFragment.setArguments(args);
         }
 
-        return f;
+        return messageDetailFragment;
     }
 
     @Nullable
@@ -87,7 +87,7 @@ public class MessageDetailFragment extends Fragment implements
                 final long messageId = args.getLong(EXTRA_MESSAGE_ID);
                 mProgress.setVisibility(View.VISIBLE);
                 mList.setVisibility(View.INVISIBLE);
-                Engagement.messageManager().getMessage(messageId, new Callback<Message>() {
+                Engagement.fetchMessage(messageId, new Callback<Message>() {
                     @Override
                     public void onSuccess(Message data) {
                         onMessage(data);
@@ -105,16 +105,9 @@ public class MessageDetailFragment extends Fragment implements
 
     private void onMessage(Message message) {
         mAdapter = new MessageDetailAdapter(message, this);
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mList.setAdapter(mAdapter);
-                mList.setVisibility(View.VISIBLE);
-                mProgress.setVisibility(View.INVISIBLE);
-            }
-        });
-
-
+        mList.setAdapter(mAdapter);
+        mList.setVisibility(View.VISIBLE);
+        mProgress.setVisibility(View.INVISIBLE);
     }
 
     private void onError(Throwable e) {
@@ -139,26 +132,26 @@ public class MessageDetailFragment extends Fragment implements
 
     @Override
     public void onMetadataClicked(Message message) {
-        List<MessageMetadata> metadata = message.metadata();
+        List<MessageMetadata> metadata = message.metadata;
         CharSequence[] items = new CharSequence[metadata.size()];
         StyleSpan bold = new StyleSpan(Typeface.BOLD);
         for (int i = 0, n = metadata.size(); i < n; i++) {
             MessageMetadata md = metadata.get(i);
             SpannableStringBuilder builder = new SpannableStringBuilder(
-                    getString(R.string.item_metadata, md.getKey(), md.getValue()));
-            builder.setSpan(bold, 0, md.getKey().length() + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+                getString(R.string.item_metadata, md.key, md.value));
+            builder.setSpan(bold, 0, md.key.length() + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
             items[i] = builder;
         }
         new AlertDialog.Builder(getActivity())
-                .setTitle(R.string.metadata)
-                .setCancelable(true)
-                .setItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // no op
-                    }
-                })
-                .show();
+            .setTitle(R.string.metadata)
+            .setCancelable(true)
+            .setItems(items, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // no op
+                }
+            })
+            .show();
     }
 
     @Override
@@ -183,15 +176,15 @@ public class MessageDetailFragment extends Fragment implements
     }
 
     private void markMessageRead(Message message) {
-        Engagement.messageManager().setMessageRead(message.campaignId, new Callback<Message>() {
+        Engagement.markMessageAsRead(String.valueOf(message.campaignId), new MessageReadCallback() {
             @Override
-            public void onSuccess(Message data) {
-                onMessage(data);
+            public void onSuccess() {
+                //NO-OP
             }
 
             @Override
-            public void onFailed(Throwable e) {
-                Log.e(TAG, "Failed to set message read.", e);
+            public void onFailure(@NonNull Exception e) {
+                Log.e(TAG, "Failed to mark message as read.", e);
             }
         });
     }

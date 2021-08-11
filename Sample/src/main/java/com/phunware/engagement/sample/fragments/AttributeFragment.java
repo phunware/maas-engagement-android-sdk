@@ -4,11 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,9 +18,8 @@ import android.view.ViewGroup;
 import com.phunware.engagement.Callback;
 import com.phunware.engagement.Engagement;
 import com.phunware.engagement.attributes.AttributeManager;
-import com.phunware.engagement.entities.AttributeMetadataItem;
-import com.phunware.engagement.entities.ProfileAttribute;
-import com.phunware.engagement.log.Logging;
+import com.phunware.engagement.attributes.model.AttributeMetadataItem;
+import com.phunware.engagement.attributes.model.ProfileAttribute;
 import com.phunware.engagement.sample.R;
 import com.phunware.engagement.sample.activities.ProfileAttributeSelectionActivity;
 import com.phunware.engagement.sample.adapters.AttributeAdapter;
@@ -113,11 +113,11 @@ public class AttributeFragment extends Fragment implements AttributeAdapter.OnCl
      * provide a list of options for the user to set.
      */
     private void downloadAttributeMetadata() {
-        Logging.d(TAG, "downloadAttributeMetadata()", null);
+        Log.d(TAG, "downloadAttributeMetadata()", null);
         mAttributeManager.getAttributeMetadata(new Callback<List<AttributeMetadataItem>>() {
             @Override
             public void onSuccess(List<AttributeMetadataItem> data) {
-                Logging.d(TAG, "downloadAttributeMetadata" + "::onSuccess() - data =" + data.toString(),
+                Log.d(TAG, "downloadAttributeMetadata" + "::onSuccess() - data =" + data.toString(),
                         null);
                 mAttributeMetadataItems.addAll(data);
                 downloadProfileAttributes();
@@ -125,7 +125,7 @@ public class AttributeFragment extends Fragment implements AttributeAdapter.OnCl
 
             @Override
             public void onFailed(Throwable e) {
-                Logging.e(TAG, "Failed to download attribute metadata", e);
+                Log.e(TAG, "Failed to download attribute metadata", e);
                 downloadProfileAttributes();
             }
         });
@@ -137,7 +137,7 @@ public class AttributeFragment extends Fragment implements AttributeAdapter.OnCl
      * <p>This gets all of the current values of the attributes.
      */
     private void downloadProfileAttributes() {
-        Logging.d(TAG, "downloadProfileAttributes()", null);
+        Log.d(TAG, "downloadProfileAttributes()", null);
         mAttributeManager.getProfileAttributes(profileAttributeCallback);
     }
 
@@ -145,7 +145,7 @@ public class AttributeFragment extends Fragment implements AttributeAdapter.OnCl
             new Callback<ProfileAttribute>() {
                 @Override
                 public void onSuccess(ProfileAttribute data) {
-                    Logging.v(TAG, "Downloaded " + data.profileAttributes.size()
+                    Log.v(TAG, "Downloaded " + data.profileAttributes.size()
                             + " profile attributes.", null);
                     mProfileAttribute = data;
                     getActivity().runOnUiThread(new Runnable() {
@@ -158,7 +158,7 @@ public class AttributeFragment extends Fragment implements AttributeAdapter.OnCl
 
                 @Override
                 public void onFailed(Throwable e) {
-                    Logging.w(TAG, "Failed to download profile attributes", e);
+                    Log.w(TAG, "Failed to download profile attributes", e);
                     mProfileAttribute = ProfileAttribute.builder()
                             .profileAttributes(new HashMap<String, String>())
                             .deviceId("")
