@@ -165,19 +165,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Android Oreo compatibility fixes for background use, please see MIGRATION.md for more details
 
-## [3.1.2][] - 2017-8-22
+## [3.1.2][] - 2017-08-22
 
 ### Added
 
 - Flexible broadcast
 
-## [3.1.1][] - 2017-8-14
+## [3.1.1][] - 2017-08-14
 
 ### Fixed
 
 - Various bug fixes
 
-## [3.1.0][] - 2017-5-11
+## [3.1.0][] - 2017-05-11
 
 ### Changed
 
@@ -187,7 +187,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Various bug fixes
 
-## 3.0.5 - 2017-4-19
+## 3.0.5 - 2017-04-19
 
 ### Changed
 
@@ -198,13 +198,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Deep-linking bug fix
 - Various bug fixes
 
-## 3.0.4 - 2017-1-23
+## 3.0.4 - 2017-01-23
 
 ### Fixed
 
 - Various bug fixes
 
-## 3.0.3 - 2017-1-04
+## 3.0.3 - 2017-01-04
 
 ### Fixed
 
