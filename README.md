@@ -56,6 +56,7 @@ Note: Android doesn't require any permissions in order to enable push notificati
 
 ##### Enabling location features
 Phunware's Engagement SDK supports location based campaigns. To enable that, you need to first make sure your app has been given location permissions (including background location permissions).
+Note: Background location permission (`ACCESS_BACKGROUND_LOCATION`) is important to make sure the SDK detects when your user has entered or exited a Geofence even when the app is in background.
 After being granted permissions, enable location based campaigns by calling:
 
 ```kotlin
