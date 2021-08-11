@@ -91,7 +91,6 @@ Engagement.fetchMessage(messageId, Callback<Message>() {})
 ```
 
 ### MaaS Setup
--------
 1. Create a new Android application in the [MaaS portal](https://maas.phunware.com/)
 2. Your new MaaS application will contain an `Application ID` and an `Access key` that you'll add to the metadata entries of your `AndroidManifest.xml` as mentioned in the `Android project setup` section above.
 3. Set up FCM following the instructions at https://firebase.google.com/docs/android/setup.
@@ -110,11 +109,9 @@ Engagement.fetchMessage(messageId, Callback<Message>() {})
 9. You're all set! For project setup and usage instructions, see the corresponding sections above.
 
 Note: If you're testing with the Sample App and want to support the map view in the Location details screen, you'll need to obtain a Google Maps API Key and add it to the `com.google.android.geo.API_KEY` entry in the `AndroidManifest.xml` file.
+
+###  Privacy
+You understand and consent to Phunware’s Privacy Policy located at www.phunware.com/privacy. If your use of Phunware’s software requires a Privacy Policy of your own, you also agree to include the terms of Phunware’s Privacy Policy in your Privacy Policy to your end users.
   
-Privacy  
------------  
-You understand and consent to Phunware’s Privacy Policy located at www.phunware.com/privacy. If your use of Phunware’s software requires a Privacy Policy of your own, you also agree to include the terms of Phunware’s Privacy Policy in your Privacy Policy to your end users.  
-  
-Terms  
------------  
+### Terms
 Use of this software requires review and acceptance of our terms and conditions for developer use located at http://www.phunware.com/terms/
