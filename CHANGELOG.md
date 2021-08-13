@@ -241,7 +241,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Complete re-write of Messaging SDK
 
-[4.0.0]: https://github.com/phunware/maas-engagement-android-sdk/compare/v3.6.5...v4.0.0
+[4.0.0]: https://github.com/phunware/maas-engagement-android-sdk/compare/v3.6.5...4.0.0
 [3.6.5]: https://github.com/phunware/maas-engagement-android-sdk/compare/v3.6.3...v3.6.5
 [3.6.3]: https://github.com/phunware/maas-engagement-android-sdk/compare/v3.6.2...v3.6.3
 [3.6.2]: https://github.com/phunware/maas-engagement-android-sdk/compare/v3.6.1...v3.6.2
