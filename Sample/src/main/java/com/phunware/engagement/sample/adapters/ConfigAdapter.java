@@ -1,58 +1,30 @@
 package com.phunware.engagement.sample.adapters;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
-import com.phunware.engagement.Engagement;
-import com.phunware.engagement.sample.BuildConfig;
 import com.phunware.engagement.sample.R;
 import com.phunware.engagement.sample.models.Config;
-
-import java.util.List;
 
 public class ConfigAdapter extends RecyclerView.Adapter<ConfigAdapter.ViewHolder> {
 
     private static final int ITEM_TYPE_STAT = 0;
     private static final int ITEM_TYPE_COUNT = 5;
 
-    private static final int[] ITEM_TYPES = {
-            ITEM_TYPE_STAT, // App Name(no subtitle), id, Device Id, SDK Version, Sample App Version
-    };
+    private Config config;
+    private String deviceId;
 
-    private Config mSelectedConfig;
-    private List<Config> mAvailableConfigs;
-
-    private AdapterView.OnItemSelectedListener mSpinnerListener =
-            new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            setConfig(mAvailableConfigs.get(position));
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-        }
-    };
-
-    public ConfigAdapter(Config mSelectedConfig,
-            List<Config> mAvailableConfigs,
-            int position) {
-        this.mSelectedConfig = mSelectedConfig;
-        this.mAvailableConfigs = mAvailableConfigs;
-    }
-
-    public void setConfig(Config config) {
-        mSelectedConfig = config;
-        notifyItemRangeChanged(1, 3);
+    public ConfigAdapter(Config config, String deviceId) {
+        this.config = config;
+        this.deviceId = deviceId;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = null;
+        View v;
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         switch (viewType) {
             case ITEM_TYPE_STAT:
@@ -68,15 +40,16 @@ public class ConfigAdapter extends RecyclerView.Adapter<ConfigAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
         switch (position) {
             case 0: // App Name
-                holder.title.setText(mAvailableConfigs.get(0).getTitle());
+                holder.title.setText("App Name");
+                holder.subtitle.setText(config.name);
                 break;
             case 1: // App Id
                 holder.title.setText(R.string.title_app_id);
-                holder.subtitle.setText(String.valueOf(mSelectedConfig.getAppId()));
+                holder.subtitle.setText(String.valueOf(config.appId));
                 break;
             case 2: // Device Id
                 holder.title.setText(R.string.title_device_id);
-                holder.subtitle.setText(Engagement.deviceId());
+                holder.subtitle.setText(deviceId);
                 break;
             case 3: // SDK Version
                 holder.title.setText(R.string.title_sdk_version);
@@ -84,7 +57,7 @@ public class ConfigAdapter extends RecyclerView.Adapter<ConfigAdapter.ViewHolder
                 break;
             case 4: // Sample App Version
                 holder.title.setText(R.string.title_app_version);
-                holder.subtitle.setText(BuildConfig.VERSION_NAME);
+                holder.subtitle.setText(R.string.engagement_sdk_version);
                 break;
             default:
                 // who cares

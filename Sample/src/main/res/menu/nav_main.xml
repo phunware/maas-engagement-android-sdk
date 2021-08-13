@@ -18,9 +18,5 @@
             android:id="@+id/attributes"
             android:icon="@drawable/ic_nav_attributes"
             android:title="@string/nav_attributes"/>
-        <item
-            android:id="@+id/logs"
-            android:icon="@drawable/ic_nav_logs"
-            android:title="@string/nav_logs"/>
     </group>
 </menu>

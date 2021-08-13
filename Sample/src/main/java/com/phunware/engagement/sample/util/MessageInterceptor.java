@@ -8,14 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
-import android.support.v4.app.NotificationCompat;
-
-import com.phunware.engagement.Callback;
+import androidx.core.app.NotificationCompat;
 import com.phunware.engagement.Engagement;
-import com.phunware.engagement.entities.Message;
 import com.phunware.engagement.messages.CampaignType;
 import com.phunware.engagement.messages.MessageListener;
-import com.phunware.engagement.messages.MessageManager;
+import com.phunware.engagement.messages.model.Message;
 import com.phunware.engagement.sample.R;
 import com.phunware.engagement.sample.activities.MainActivity;
 
@@ -51,8 +48,8 @@ public class MessageInterceptor {
      */
     private Notification getNotification(Message msg, Intent intent) {
         intent.setAction(Intent.ACTION_VIEW);
-        intent.setType(MessageManager.MIME_MESSAGE);
-        intent.putExtra(MessageManager.EXTRA_MESSAGE, msg);
+        intent.setType(Engagement.MIME_MESSAGE);
+        intent.putExtra(Engagement.EXTRA_MESSAGE, msg);
         int requestId = (int) msg.campaignId;
 
         //Customize this Pending intent
@@ -83,72 +80,25 @@ public class MessageInterceptor {
      */
     public void listenForMessages() {
         listener = new CampaignMessageListener();
-        Engagement.messageManager().addMessageListener(listener);
+        Engagement.addOnMessageReceivedListener(listener);
     }
 
     public void stopListening() {
         if (listener != null) {
-            Engagement.messageManager().removeMessageListener(listener);
+            Engagement.removeOnMessageReceivedListener(listener);
         }
     }
 
     /**
      * Implementation of the Engagement SDK Message listener
      */
-    class CampaignMessageListener implements MessageListener {
+    static class CampaignMessageListener implements MessageListener {
 
         private final Handler handler = new Handler();
 
         @Override
-        public void onMessageAdded(final Long messageId) {
-            final Runnable cancelTask = new Runnable() {
-                @Override
-                public void run() {
-                    NotificationManager notificationManager =
-                            (NotificationManager) context
-                                    .getSystemService(Context.NOTIFICATION_SERVICE);
-                    notificationManager.cancel(messageId.intValue());
-                }
-            };
-
-            Engagement.messageManager().getMessage(messageId, new Callback<Message>() {
-                @Override
-                public void onSuccess(Message data) {
-                    if (!data.campaignType.equals(CampaignType.BEACON_ENTRY)) {
-                        return;
-                    }
-
-                    //Cancel the notification
-                    handler.postDelayed(cancelTask, CANCEL_DELAY);
-
-                    Intent intent = new Intent(context, MainActivity.class);
-                    final Notification notification = getNotification(data, intent);
-                    final NotificationManager notificationManager =
-                            (NotificationManager) context
-                                    .getSystemService(Context.NOTIFICATION_SERVICE);
-
-                    //notify after a delay
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            notificationManager.notify(messageId.intValue(), notification);
-                        }
-                    }, NOTIFICATION_DELAY);
-
-                }
-
-                @Override
-                public void onFailed(Throwable e) {
-                }
-            });
+        public void onMessageReceived(Message message) {
         }
 
-        @Override
-        public void onMessageUpdated(Long messageId) {
-        }
-
-        @Override
-        public void onMessageRemoved(Long messageId) {
-        }
     }
 }

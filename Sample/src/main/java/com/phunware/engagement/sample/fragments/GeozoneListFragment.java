@@ -2,11 +2,11 @@ package com.phunware.engagement.sample.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,11 +18,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.phunware.engagement.Callback;
-import com.phunware.engagement.entities.Geozone;
+import com.phunware.engagement.Engagement;
 import com.phunware.engagement.location.LocationListener;
-import com.phunware.engagement.location.LocationManager;
+import com.phunware.engagement.location.model.Geozone;
 import com.phunware.engagement.sample.R;
-import com.phunware.engagement.sample.SampleApplication;
 import com.phunware.engagement.sample.adapters.GeozoneAdapter;
 import com.phunware.engagement.sample.views.DividerItemDecoration;
 
@@ -39,7 +38,6 @@ public class GeozoneListFragment extends Fragment
     private ProgressBar mLoading;
 
     private GeozoneAdapter mAdapter;
-    private LocationManager locationManager;
 
     @Nullable
     @Override
@@ -61,7 +59,6 @@ public class GeozoneListFragment extends Fragment
         mError.setVisibility(View.GONE);
         mLoading.setVisibility(View.VISIBLE);
 
-        locationManager = ((SampleApplication) getActivity().getApplication()).getLocationManager();
         mList.setLayoutManager(new LinearLayoutManager(getActivity()));
         mList.addItemDecoration(new DividerItemDecoration(getActivity()));
 
@@ -71,13 +68,13 @@ public class GeozoneListFragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
-        locationManager.addLocationListener(this);
+        Engagement.locationManager().addLocationListener(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        locationManager.addLocationListener(this);
+        Engagement.locationManager().addLocationListener(this);
     }
 
     private void showError(Throwable e) {
@@ -150,7 +147,7 @@ public class GeozoneListFragment extends Fragment
     }
 
     private void refreshGeozones() {
-        locationManager.getAvailableGeozones(new Callback<List<Geozone>>() {
+        Engagement.locationManager().getAvailableGeozones(new Callback<List<Geozone>>() {
             @Override
             public void onSuccess(List<Geozone> data) {
                 setGeozones(data);

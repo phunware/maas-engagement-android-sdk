@@ -68,12 +68,6 @@
     <string name="checkin_succeeded">Check In Succeeded</string>
     <string name="checkin_failed">Check In Failed</string>
 
-    <!-- Replace the following strings with values from MaaS Portal -->
-    <string name="app_id">YOUR_APP_ID_HERE</string>
-    <string name="access_key">YOUR_ACCESS_KEY_HERE</string>
-    <string name="signature_key">YOUR_SIGNATURE_KEY_HERE</string>
-    <string name="map_key">YOUR_API_KEY_HERE</string>
-
     <plurals name="tags">
         <item quantity="zero">No tags</item>
         <item quantity="one">%1$d tag</item>

@@ -6,7 +6,7 @@
     android:background="@color/dialog_bg"
     android:padding="@dimen/padding_medium">
 
-    <android.support.v7.widget.AppCompatEditText
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/title_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,7 +14,7 @@
         android:hint="@string/config_title"
         />
 
-    <android.support.v7.widget.AppCompatEditText
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/app_id_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         android:hint="@string/title_app_id"
         />
 
-    <android.support.v7.widget.AppCompatSpinner
+    <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/env_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

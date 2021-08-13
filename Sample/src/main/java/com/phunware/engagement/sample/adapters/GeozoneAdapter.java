@@ -1,14 +1,13 @@
 package com.phunware.engagement.sample.adapters;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.phunware.engagement.entities.Geozone;
+import com.phunware.engagement.location.model.Geozone;
 import com.phunware.engagement.sample.R;
 
 import java.util.ArrayList;
@@ -46,14 +45,14 @@ public class GeozoneAdapter extends RecyclerView.Adapter<GeozoneAdapter.ViewHold
         final Geozone geozone = mGeozones.get(position);
 
         holder.geozone = geozone;
-        holder.title.setText(geozone.name());
+        holder.title.setText(geozone.name);
         holder.isInside.setText(R.string.inside);
         holder.isMonitored.setText(R.string.monitored);
 
         final Context context = holder.title.getContext();
 
         int insideColor;
-        if (geozone.isInside()) {
+        if (geozone.isInside) {
             insideColor = ContextCompat.getColor(context, R.color.zone_inside_stroke);
         } else {
             insideColor = ContextCompat.getColor(context, R.color.text_disabled);
@@ -61,7 +60,7 @@ public class GeozoneAdapter extends RecyclerView.Adapter<GeozoneAdapter.ViewHold
         holder.isInside.setTextColor(insideColor);
 
         int monitoredColor;
-        if (geozone.isMonitored()) {
+        if (geozone.isMonitored) {
             monitoredColor = ContextCompat.getColor(context, R.color.zone_inside_stroke);
         } else {
             monitoredColor = ContextCompat.getColor(context, R.color.text_disabled);
@@ -76,7 +75,7 @@ public class GeozoneAdapter extends RecyclerView.Adapter<GeozoneAdapter.ViewHold
 
     @Override
     public long getItemId(int position) {
-        return mGeozones.get(position).id();
+        return mGeozones.get(position).id;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
