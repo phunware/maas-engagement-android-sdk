@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void handleIntent(Intent intent) {
-        if (Intent.ACTION_VIEW.equals(intent.getAction())) {
+        if (Intent.ACTION_VIEW.equals(intent.getAction()) && Engagement.MIME_MESSAGE.equals(intent.getType())) {
             Message intentMessage = intent.getParcelableExtra(Engagement.EXTRA_MESSAGE);
             if (intentMessage != null) {
                 getSupportFragmentManager()

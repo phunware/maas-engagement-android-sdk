@@ -96,14 +96,18 @@ override fun onCreate(savedInstanceState: Bundle?) {
 }
 ```
 
-Intents from Engagement notifications have the action type `VIEW` and the Message object can be retrieved from the Intent by calling `getParcelableExtra(name: String)` and passing `Engagement.EXTRA_MESSAGE` as the `name` parameter:
+You can filter Engagement Intents by checking for the action `Intent.ACTION_VIEW` and the type `Engagement.MIME_MESSAGE`. The Message object can be retrieved from the Intent by calling `getParcelableExtra(name: String)` and passing `Engagement.EXTRA_MESSAGE` as the `name` parameter:
 ```kotlin
 private fun handleIntent(intent: Intent?) {
     when (intent?.action) {
         Intent.ACTION_VIEW -> {
-            val intentMessage: Message? = intent.getParcelableExtra(Engagement.EXTRA_MESSAGE)
-            if (intentMessage != null) {
-                // Handle the message.
+            when (intent.type) {
+                Engagement.MIME_MESSAGE -> {
+                    val intentMessage: Message? = intent.getParcelableExtra(Engagement.EXTRA_MESSAGE)
+                    if (intentMessage != null) {
+                        // Handle the message.
+                    }
+                }
             }
         }
     }
