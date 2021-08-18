@@ -78,21 +78,21 @@ To open your app after tapping a push notification you need to add the following
 
 Note: The chosen Activity should be using `android:launchMode="singleTop"`.
 
-If the Activity is already running, the `onNewIntent(Intent intent)` method will be called and you should handle the Intent there:
+If the Activity is already running, the `onNewIntent(intent: Intent?)` method will be called and you should handle the Intent there:
 ```kotlin
 override fun onNewIntent(intent: Intent?) {
     super.onNewIntent(intent)
     setIntent(intent)
-    // Handle the intent here.
+    // Handle the intent.
 }
 ```
 
-If the Activity isn't running, a new instance will be created and you should handle the Intent in `override fun onCreate(savedInstanceState: Bundle?)`:
+If the Activity isn't running, a new instance will be created and you should handle the Intent in `onCreate(savedInstanceState: Bundle?)`:
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.your_activity_layout)
-    // Handle the intent here.
+    // Handle the intent.
 }
 ```
 
