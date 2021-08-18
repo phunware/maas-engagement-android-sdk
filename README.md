@@ -66,6 +66,50 @@ Engagement.enablePushNotifications()
 
 Note: Android doesn't require any permissions in order to enable push notifications. If you feel you don't need to display any information about this to your user, you can simply call the above method immediately after calling `init()`.
 
+##### Opening your app from push notifications
+To open your app after tapping a push notification you need to add the following Intent filter to your Launcher Activity (usually your Main Activity):
+```xml
+<intent-filter tools:ignore="AppLinkUrlError">
+    <category android:name="android.intent.category.DEFAULT" />
+    <action android:name="android.intent.action.VIEW" />
+    <data android:mimeType="engagement/message" />
+</intent-filter>
+```
+
+Note: The chosen Activity should be using `android:launchMode="singleTop"`.
+
+If the Activity is already running, the `onNewIntent(Intent intent)` method will be called and you should handle the Intent there:
+```kotlin
+override fun onNewIntent(intent: Intent?) {
+    super.onNewIntent(intent)
+    setIntent(intent)
+    // Handle the intent here.
+}
+```
+
+If the Activity isn't running, a new instance will be created and you should handle the Intent in `override fun onCreate(savedInstanceState: Bundle?)`:
+```kotlin
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.your_activity_layout)
+    // Handle the intent here.
+}
+```
+
+Intents from Engagement notifications have the action type `VIEW` and the Message object can be retrieved from the Intent by calling `getParcelableExtra(name: String)` and passing `Engagement.EXTRA_MESSAGE` as the `name` parameter:
+```kotlin
+private fun handleIntent(intent: Intent?) {
+    when (intent?.action) {
+        Intent.ACTION_VIEW -> {
+            val intentMessage: Message? = intent.getParcelableExtra(Engagement.EXTRA_MESSAGE)
+            if (intentMessage != null) {
+                // Handle the message.
+            }
+        }
+    }
+}
+```
+
 ##### Enabling location features
 Phunware's Engagement SDK supports location based campaigns. To enable that, you need to first make sure your app has been granted location permissions (including background location permissions).
 Note: Background location permission (`ACCESS_BACKGROUND_LOCATION`) is important to make sure the SDK detects when your user has entered or exited a Geofence even when the app is in background.
