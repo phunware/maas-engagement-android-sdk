@@ -27,7 +27,7 @@ private const val METADATA_ACCESS_KEY = "com.phunware.maas.ACCESS_KEY"
 /**
  * Fragment that displays configuration information.
  */
-class ConfigFragment : Fragment() {
+internal class ConfigFragment : Fragment() {
     private var mRecyclerView: RecyclerView? = null
     private val coroutineIoScope = CoroutineScope(Dispatchers.IO)
 
@@ -55,7 +55,7 @@ class ConfigFragment : Fragment() {
     private fun initRecyclerView() {
         coroutineIoScope.launch {
             val deviceId = try {
-                val advertisingIdInfo = AdvertisingIdClient.getAdvertisingIdInfo(context)
+                val advertisingIdInfo = AdvertisingIdClient.getAdvertisingIdInfo(requireContext())
                 advertisingIdInfo.id
             } catch (e: Exception) {
                 Log.w("ConfigFragment", "Failed to get Advertising ID. Using Firebase Installation ID instead.")
