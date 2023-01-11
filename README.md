@@ -13,8 +13,8 @@ Add the following repository to your top level `build.gradle` file:
 ```groovy
 repositories {
     maven {
-            url "https://nexus.phunware.com/content/groups/public/"
-        }
+        url "https://nexus.phunware.com/content/groups/public/"
+    }
 }
 ```
 

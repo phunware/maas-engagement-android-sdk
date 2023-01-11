@@ -8,8 +8,8 @@ android {
         applicationId "com.phunware.engagement.sample"
         minSdkVersion 23
         targetSdkVersion 31
-        versionCode 4
-        versionName "4.1.1"
+        versionCode 1
+        versionName "4.1.2"
         multiDexEnabled true
     }
 
@@ -38,7 +38,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.phunware.engagement:mobile-engagement:4.1.1'
+    implementation 'com.phunware.engagement:mobile-engagement:4.1.2'
 
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.6.1'

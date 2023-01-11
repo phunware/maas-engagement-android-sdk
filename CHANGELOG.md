@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.1.2][] - 2023-01-11
+
+### Changed
+
+- Bumped analytics-core dependency to 4.1.1
+
+### Fixed
+
+- Fixed an issue with beacon entry and exit campaign triggers
+- Fixed a crash that could occur during service outage
+
 ## [4.1.1][] - 2022-09-08
 
 ### Fixed
@@ -274,6 +285,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Complete re-write of Messaging SDK
 
+[4.1.2]: https://github.com/phunware/maas-engagement-android-sdk/compare/4.1.1...4.1.2
 [4.1.1]: https://github.com/phunware/maas-engagement-android-sdk/compare/4.1.0...4.1.1
 [4.1.0]: https://github.com/phunware/maas-engagement-android-sdk/compare/4.0.2...4.1.0
 [4.0.2]: https://github.com/phunware/maas-engagement-android-sdk/compare/4.0.1...4.0.2
