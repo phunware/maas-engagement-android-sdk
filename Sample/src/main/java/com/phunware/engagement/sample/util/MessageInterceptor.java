@@ -10,11 +10,9 @@ import android.os.Build;
 import android.os.Handler;
 import androidx.core.app.NotificationCompat;
 import com.phunware.engagement.Engagement;
-import com.phunware.engagement.messages.CampaignType;
 import com.phunware.engagement.messages.MessageListener;
 import com.phunware.engagement.messages.model.Message;
 import com.phunware.engagement.sample.R;
-import com.phunware.engagement.sample.activities.MainActivity;
 
 /**
  * This Interceptor can be used to intercept messages and customize them.
@@ -54,7 +52,7 @@ public class MessageInterceptor {
 
         //Customize this Pending intent
         PendingIntent pi = PendingIntent.getActivity(context, requestId, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         NotificationCompat.Builder notificationBuilder
                 = new NotificationCompat.Builder(context, DWELL_CHANNEL_ID)
                 .setContentTitle(DWELL_PREFIX + msg.notificationTitle)

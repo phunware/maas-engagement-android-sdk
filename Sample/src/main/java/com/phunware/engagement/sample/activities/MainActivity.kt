@@ -20,6 +20,7 @@ import androidx.core.view.GravityCompat
 import android.Manifest.permission
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import android.util.Log
 import android.view.MenuItem
 import androidx.core.app.ActivityCompat
 import com.phunware.engagement.messages.model.Message
@@ -31,6 +32,9 @@ internal class MainActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     private var mDrawer: DrawerLayout? = null
     private var mNavigation: NavigationView? = null
     private var mDrawerToggle: ActionBarDrawerToggle? = null
+
+    private val isAndroidSDKVersion33OrHigher: Boolean
+        get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
 
     private val isAndroidSDKVersion31OrHigher: Boolean
         get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
@@ -44,7 +48,6 @@ internal class MainActivity : AppCompatActivity(), NavigationView.OnNavigationIt
 
         if (savedInstanceState == null || !Engagement.isInitialized()) {
             Engagement.init(applicationContext)
-            Engagement.enablePushNotifications()
         }
 
         checkPermissions()
@@ -100,6 +103,11 @@ internal class MainActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             return
         }
 
+        if (!canPostNotifications()) {
+            Log.w("MainActivity", "Please grant notification Permission to receive campaign notifications.")
+            return
+        }
+
         if (isAndroidSDKVersion29OrHigher) {
             if (!canAccessBackgroundLocation()) {
                 Toast.makeText(
@@ -110,6 +118,9 @@ internal class MainActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             }
         }
 
+        // Now that we have notification and location permissions, start monitoring for campaigns by
+        // enabling notifications and starting the location manager
+        Engagement.enablePushNotifications()
         Engagement.locationManager().start()
     }
 
@@ -158,6 +169,12 @@ internal class MainActivity : AppCompatActivity(), NavigationView.OnNavigationIt
 
     private fun checkPermissions() {
         mutableSetOf<String>().run {
+            if (isAndroidSDKVersion33OrHigher) {
+                if (!canPostNotifications()) {
+                    add(permission.POST_NOTIFICATIONS)
+                }
+            }
+
             if (isAndroidSDKVersion31OrHigher) {
                 if (!canLookForBluetoothDevices()) {
                     add(permission.BLUETOOTH_SCAN)
@@ -198,6 +215,12 @@ internal class MainActivity : AppCompatActivity(), NavigationView.OnNavigationIt
 
     private fun canLookForBluetoothDevices() = if (isAndroidSDKVersion31OrHigher) {
         hasPermission(permission.BLUETOOTH_SCAN)
+    } else {
+        true
+    }
+
+    private fun canPostNotifications() = if (isAndroidSDKVersion33OrHigher) {
+        hasPermission(permission.POST_NOTIFICATIONS)
     } else {
         true
     }
