@@ -2,14 +2,15 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 33
+    namespace "com.phunware.engagement.sample"
+    compileSdkVersion 36
 
     defaultConfig {
         applicationId "com.phunware.engagement.sample"
-        minSdkVersion 23
-        targetSdkVersion 33
+        minSdkVersion 28
+        targetSdkVersion 36
         versionCode 1
-        versionName "4.3.0"
+        versionName "4.4.0"
         multiDexEnabled true
     }
 
@@ -35,25 +36,30 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
         freeCompilerArgs += ['-Xexplicit-api=strict', '-opt-in=kotlin.RequiresOptIn']
     }
+
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
-    implementation 'com.phunware.engagement:mobile-engagement:4.3.0'
-
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
-    implementation 'com.google.android.gms:play-services-maps:18.1.0'
-    implementation 'androidx.multidex:multidex:2.0.1'
-
-    implementation platform('org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.6.4')
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:'
-
-    implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'
-    implementation 'com.google.firebase:firebase-installations-ktx:17.1.2'
-
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+    // Phunware
+    implementation(libs.mobile.engagement.sdk)
+    // Androidx
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.multidex)
+    // Google
+    implementation(libs.material)
+    implementation(libs.play.services.maps)
+    implementation(libs.play.services.ads.identifier)
+    coreLibraryDesugaring(libs.desugar)
+    // Kotlin
+    implementation(platform(libs.coroutines.bom))
+    implementation(libs.coroutines.core)
+    implementation(libs.coroutines.android)
+    implementation(libs.coroutines.play.services)
+    // Firebase
+    implementation(libs.firebase.installations.ktx)
 }
 
 apply plugin: 'com.google.gms.google-services'

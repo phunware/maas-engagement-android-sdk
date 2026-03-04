@@ -26,6 +26,7 @@
     <string name="value_test">Test</string>
     <string name="title_static_config">Static Config</string>
     <string name="title_device_id">Device Id</string>
+    <string name="title_registered_device_id">Registered Device Id</string>
     <string name="title_sdk_version">SDK Version</string>
     <string name="title_app_version">App Version</string>
 

@@ -1,29 +1,29 @@
 package com.phunware.engagement.sample.activities
 
-import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.navigation.NavigationView
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.ActionBarDrawerToggle
-import android.os.Bundle
-import com.phunware.engagement.sample.R
-import com.phunware.engagement.sample.fragments.ConfigFragment
-import android.content.Intent
-import com.phunware.engagement.Engagement
-import com.phunware.engagement.sample.fragments.MessageDetailFragment
-import android.content.pm.PackageManager
-import android.os.Build
-import android.widget.Toast
-import com.phunware.engagement.sample.fragments.GeozoneListFragment
-import com.phunware.engagement.sample.fragments.MessageListFragment
-import com.phunware.engagement.sample.fragments.AttributeFragment
-import androidx.core.view.GravityCompat
 import android.Manifest.permission
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.os.Build
+import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
+import com.phunware.engagement.Engagement
 import com.phunware.engagement.messages.model.Message
+import com.phunware.engagement.sample.R
+import com.phunware.engagement.sample.fragments.AttributeFragment
+import com.phunware.engagement.sample.fragments.ConfigFragment
+import com.phunware.engagement.sample.fragments.GeozoneListFragment
+import com.phunware.engagement.sample.fragments.MessageDetailFragment
+import com.phunware.engagement.sample.fragments.MessageListFragment
 
 private const val PERMISSIONS_REQUEST = 10
 
@@ -74,7 +74,8 @@ internal class MainActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         mNavigation = findViewById(R.id.navigation)
         mNavigation?.setNavigationItemSelectedListener(this)
         supportFragmentManager.addOnBackStackChangedListener {
-            mDrawerToggle?.isDrawerIndicatorEnabled = supportFragmentManager.backStackEntryCount == 0
+            mDrawerToggle?.isDrawerIndicatorEnabled =
+                supportFragmentManager.backStackEntryCount == 0
         }
     }
 
@@ -104,7 +105,10 @@ internal class MainActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         }
 
         if (!canPostNotifications()) {
-            Log.w("MainActivity", "Please grant notification Permission to receive campaign notifications.")
+            Log.w(
+                "MainActivity",
+                "Please grant notification Permission to receive campaign notifications."
+            )
             return
         }
 
@@ -141,9 +145,12 @@ internal class MainActivity : AppCompatActivity(), NavigationView.OnNavigationIt
                     supportFragmentManager.popBackStack()
                     return true
                 }
-                mDrawerToggle?.onOptionsItemSelected(item) == true || super.onOptionsItemSelected(item)
+                mDrawerToggle?.onOptionsItemSelected(item) == true ||
+                        super.onOptionsItemSelected(item)
             }
-            else -> mDrawerToggle?.onOptionsItemSelected(item) == true || super.onOptionsItemSelected(item)
+
+            else -> mDrawerToggle?.onOptionsItemSelected(item) == true ||
+                    super.onOptionsItemSelected(item)
         }
     }
 
@@ -152,15 +159,19 @@ internal class MainActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             R.id.home -> supportFragmentManager.beginTransaction()
                 .replace(R.id.content, ConfigFragment())
                 .commit()
+
             R.id.locations -> supportFragmentManager.beginTransaction()
                 .replace(R.id.content, GeozoneListFragment())
                 .commit()
+
             R.id.messages -> supportFragmentManager.beginTransaction()
                 .replace(R.id.content, MessageListFragment())
                 .commit()
+
             R.id.attributes -> supportFragmentManager.beginTransaction()
                 .replace(R.id.content, AttributeFragment())
                 .commit()
+
             else -> {}
         }
         mDrawer?.closeDrawer(GravityCompat.START)
@@ -251,6 +262,7 @@ internal class MainActivity : AppCompatActivity(), NavigationView.OnNavigationIt
                 }
                 return
             }
+
             else -> {}
         }
     }

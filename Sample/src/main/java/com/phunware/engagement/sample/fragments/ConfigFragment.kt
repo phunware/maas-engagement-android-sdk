@@ -2,16 +2,17 @@ package com.phunware.engagement.sample.fragments
 
 import android.content.Context
 import android.content.pm.PackageManager
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.view.View
 import com.google.android.gms.ads.identifier.AdvertisingIdClient
 import com.google.firebase.installations.FirebaseInstallations
+import com.phunware.engagement.Engagement
 import com.phunware.engagement.sample.R
 import com.phunware.engagement.sample.adapters.ConfigAdapter
 import com.phunware.engagement.sample.models.Config
@@ -58,25 +59,30 @@ internal class ConfigFragment : Fragment() {
                 val advertisingIdInfo = AdvertisingIdClient.getAdvertisingIdInfo(requireContext())
                 advertisingIdInfo.id
             } catch (e: Exception) {
-                Log.w("ConfigFragment", "Failed to get Advertising ID. Using Firebase Installation ID instead.")
+                Log.w(
+                    "ConfigFragment",
+                    "Failed to get Advertising ID. Using Firebase Installation ID instead."
+                )
                 val firebaseInstallationId = FirebaseInstallations.getInstance().id.await()
                 firebaseInstallationId
             }
+            val registeredDeviceId = Engagement.getRegisteredDeviceId() ?: "Not available yet"
             val packageName = requireActivity().packageName
             val packageManager = requireActivity().packageManager
-            val appInfo = packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA)
+            val appInfo =
+                packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA)
             val metaData = appInfo.metaData
             val applicationId = metaData.getInt(METADATA_APPLICATION_ID).toString()
-            val accessKey = metaData.getString(METADATA_ACCESS_KEY)
+            val accessKey = metaData.getString(METADATA_ACCESS_KEY).orEmpty()
 
             withContext(Dispatchers.Main) {
                 context?.let {
                     val config = Config(
-                        "Sample",
-                        applicationId,
-                        accessKey
+                        appId = applicationId,
+                        accessKey = accessKey,
+                        environment = "Dev"
                     )
-                    val adapter = ConfigAdapter(config, deviceId)
+                    val adapter = ConfigAdapter(config, deviceId, registeredDeviceId)
                     mRecyclerView?.adapter = adapter
                 }
             }
@@ -95,7 +101,11 @@ internal class ConfigFragment : Fragment() {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 }

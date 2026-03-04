@@ -2,11 +2,6 @@ package com.phunware.engagement.sample.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,13 +12,21 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.phunware.engagement.Callback;
-import com.phunware.engagement.Engagement;
 import com.phunware.engagement.location.LocationListener;
+import com.phunware.engagement.location.LocationManager;
 import com.phunware.engagement.location.model.Geozone;
+import com.phunware.engagement.sample.App;
 import com.phunware.engagement.sample.R;
 import com.phunware.engagement.sample.adapters.GeozoneAdapter;
-import com.phunware.engagement.sample.views.DividerItemDecoration;
 
 import java.util.List;
 
@@ -38,15 +41,17 @@ public class GeozoneListFragment extends Fragment
     private ProgressBar mLoading;
 
     private GeozoneAdapter mAdapter;
+    private LocationManager locationManager;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_location_list, container, false);
-        mList = (RecyclerView) v.findViewById(R.id.list);
-        mError = (TextView) v.findViewById(R.id.error);
-        mLoading = (ProgressBar) v.findViewById(R.id.loading);
+                             @Nullable Bundle savedInstanceState) {
+        View v = inflater.inflate(com.phunware.engagement.sample.R.layout.fragment_location_list,
+                container, false);
+        mList = v.findViewById(com.phunware.engagement.sample.R.id.list);
+        mError = v.findViewById(com.phunware.engagement.sample.R.id.error);
+        mLoading = v.findViewById(com.phunware.engagement.sample.R.id.loading);
         return v;
     }
 
@@ -59,8 +64,10 @@ public class GeozoneListFragment extends Fragment
         mError.setVisibility(View.GONE);
         mLoading.setVisibility(View.VISIBLE);
 
-        mList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mList.addItemDecoration(new DividerItemDecoration(getActivity()));
+        locationManager = ((App) requireActivity().getApplication()).getLocationManager();
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mList.getContext());
+        mList.setLayoutManager(layoutManager);
+        mList.addItemDecoration(new DividerItemDecoration(mList.getContext(), layoutManager.getOrientation()));
 
         refreshGeozones();
     }
@@ -68,20 +75,21 @@ public class GeozoneListFragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
-        Engagement.locationManager().addLocationListener(this);
+        locationManager.addLocationListener(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Engagement.locationManager().addLocationListener(this);
+        locationManager.removeLocationListener(this);
     }
 
     private void showError(Throwable e) {
         mList.setVisibility(View.GONE);
         mLoading.setVisibility(View.VISIBLE);
         mError.setVisibility(View.VISIBLE);
-        mError.setText(getString(R.string.location_load_failed, e.getMessage()));
+        mError.setText(getString(com.phunware.engagement.sample.R.string.location_load_failed,
+                e.getMessage()));
     }
 
     public void setGeozones(List<Geozone> geozones) {
@@ -102,38 +110,36 @@ public class GeozoneListFragment extends Fragment
         mLoading.setVisibility(View.GONE);
         mList.setVisibility(View.GONE);
         mError.setVisibility(View.VISIBLE);
-        mError.setText(R.string.no_locations);
+        mError.setText(com.phunware.engagement.sample.R.string.no_locations);
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (context instanceof AppCompatActivity) {
             AppCompatActivity activity = (AppCompatActivity) context;
-            activity.setTitle(R.string.nav_locations);
+            activity.setTitle(com.phunware.engagement.sample.R.string.nav_locations);
         }
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.map, menu);
+    public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
+        inflater.inflate(com.phunware.engagement.sample.R.menu.map, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.map:
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.content, new GeozoneMapFragment())
-                        .addToBackStack(null)
-                        .commit();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.map) {
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.content,
+                            new GeozoneMapFragment())
+                    .addToBackStack(null)
+                    .commit();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -141,13 +147,13 @@ public class GeozoneListFragment extends Fragment
         GeozoneDetailFragment f = GeozoneDetailFragment.newInstance(zone);
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.content, f)
+                .replace(com.phunware.engagement.sample.R.id.content, f)
                 .addToBackStack(null)
                 .commit();
     }
 
     private void refreshGeozones() {
-        Engagement.locationManager().getAvailableGeozones(new Callback<List<Geozone>>() {
+        locationManager.getAvailableGeozones(new Callback<List<Geozone>>() {
             @Override
             public void onSuccess(List<Geozone> data) {
                 setGeozones(data);
