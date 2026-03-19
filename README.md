@@ -5,7 +5,7 @@
 Phunware's Engagement SDK for Android. Visit https://www.phunware.com/ for more information or [sign into the MaaS Portal](http://maas.phunware.com/) to set up Engagement.
 
 ### Requirements
-* minSdk 23.
+* minSdk 28.
 * AndroidX.
 
 ### Download
@@ -141,14 +141,14 @@ You're all set to receive Engagement Messages in your App!
 ##### Accessing messages (Message Center)
 You can access messages sent by MaaS by calling:
 
-```kotlin
-Engagement.fetchMessages(startDate: Date, endDate: Date, callback: Callback<List<Message>>)
-```
+```kotlin  
+Engagement.fetchMessages(startDate: Date, endDate: Date): Result<List<Message>>  
+```  
 
 or, to access a specific message:
 
-```kotlin
-Engagement.fetchMessage(messageId: Long, callback: Callback<Message>)
+```kotlin  
+Engagement.fetchMessage(messageId: String): Result<Message>  
 ```
 
 ### MaaS Setup
@@ -157,15 +157,15 @@ Engagement.fetchMessage(messageId: Long, callback: Callback<Message>)
 3. Set up FCM following the instructions at https://firebase.google.com/docs/android/setup.
 4. Create a project on Firebase console
 
-    - Choose 'Add Firebase to Android app'
-    - In the Firebase console, the package name should be the same as the `applicationId` in your app level's `build.gradle`.  If you're using the Sample App to test, the default `applicationId` is `com.phunware.engagement.sample`
+   - Choose 'Add Firebase to Android app'
+   - In the Firebase console, the package name should be the same as the `applicationId` in your app level's `build.gradle`.  If you're using the Sample App to test, the default `applicationId` is `com.phunware.engagement.sample`
 
 5. In MaaS, navigate to your newly created Android app and choose Edit. Replace the API Key and Sender ID values with the values from ServerKey and SenderId on the Firebase console (under the CloudMessaging section).
 6. The Firebase console will create a `google-services.json` file for the app you just created.
 7. Add the `google-services.json` file from Firebase to your project's main directory (i.e.: `sample/google-services.json`).
 8. Add the google-services gradle plugin to your application level build.gradle file:
 
-  `apply plugin: 'com.google.gms.google-services'`
+`apply plugin: 'com.google.gms.google-services'`
 
 9. You're all set! For project setup and usage instructions, see the corresponding sections above.
 
@@ -173,6 +173,6 @@ Note: If you're testing with the Sample App and want to support the map view in 
 
 ###  Privacy
 You understand and consent to Phunware’s Privacy Policy located at www.phunware.com/privacy. If your use of Phunware’s software requires a Privacy Policy of your own, you also agree to include the terms of Phunware’s Privacy Policy in your Privacy Policy to your end users.
-  
+
 ### Terms
 Use of this software requires review and acceptance of our terms and conditions for developer use located at http://www.phunware.com/terms/

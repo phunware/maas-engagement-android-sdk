@@ -1,0 +1,34 @@
+[versions]
+# Androidx
+androidx-appcompat = "1.7.1"
+multidex = "2.0.1"
+# Google
+material = "1.12.0"
+play-services-maps = "19.2.0"
+desugar = "2.1.5"
+play-services-ads-identifier = "18.3.0"
+# Kotlin
+coroutines = "1.10.2"
+# Firebase
+firebase-installations-ktx = "18.0.0"
+# Phunware
+mobile-engagement-sdk = "4.4.0"
+
+[libraries]
+# Androidx
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
+androidx-multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
+# Google
+material = { module = "com.google.android.material:material", version.ref = "material" }
+play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "play-services-maps" }
+play-services-ads-identifier = { module = "com.google.android.gms:play-services-ads-identifier", version.ref = "play-services-ads-identifier" }
+desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar" }
+# Kotlin
+coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "coroutines" }
+coroutines-bom = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-bom", version.ref = "coroutines" }
+# Firebase
+firebase-installations-ktx = { module = "com.google.firebase:firebase-installations-ktx", version.ref = "firebase-installations-ktx" }
+# Phunware
+mobile-engagement-sdk = { module = "com.phunware.engagement:mobile-engagement", version.ref = "mobile-engagement-sdk" }
